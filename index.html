@@ -4,6 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>22 Carats Jewellers - Bespoke Luxury Showroom</title>
+    <!-- Sandbox Error Protection for read-only fetch getter -->
+    <script>
+        (function() {
+            try {
+                const desc = Object.getOwnPropertyDescriptor(window, 'fetch') || Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+                if (desc && !desc.set) {
+                    let customFetch = window.fetch;
+                    Object.defineProperty(window, 'fetch', {
+                        get() { return customFetch; },
+                        set(val) { 
+                            console.warn("Intercepted fetch override in sandbox environment.");
+                            customFetch = val; 
+                        },
+                        configurable: true,
+                        enumerable: true
+                    });
+                }
+            } catch (e) {
+                console.warn("Sandbox fetch override protection bypassed:", e);
+            }
+        })();
+    </script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -229,7 +251,7 @@
         }
     </style>
 </head>
-<body class="bg-luxury-darkBg text-gray-100 font-sans theme-transition overflow-x-hidden min-h-screen">
+<body class="bg-luxury-lightBg dark:bg-luxury-darkBg text-gray-900 dark:text-gray-100 font-sans theme-transition overflow-x-hidden min-h-screen">
     <!-- Spotlight Cursor -->
     <div id="spotlight" class="cursor-spotlight hidden md:block"></div>
 
@@ -276,7 +298,6 @@
                 <a href="#tryon" class="text-luxury-gold hover:text-white font-medium flex items-center gap-1 transition"><span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span> Live Try-On</a>
                 <a href="#verification" class="text-gray-300 hover:text-luxury-gold transition">Certificate Verify</a>
                 <a href="#calculators" class="text-gray-300 hover:text-luxury-gold transition">Calculators</a>
-                <a href="#appointment" class="text-gray-300 hover:text-luxury-gold transition">VIP Booking</a>
             </div>
 
             <!-- Utilities (Theme, Admin & Mobile Toggle) -->
@@ -301,7 +322,6 @@
             <a href="#tryon" class="block py-2 text-luxury-gold hover:text-white" onclick="toggleMobileMenu()">AR Live Try-On</a>
             <a href="#verification" class="block py-2 text-gray-300 hover:text-luxury-gold" onclick="toggleMobileMenu()">Certificate Verify</a>
             <a href="#calculators" class="block py-2 text-gray-300 hover:text-luxury-gold" onclick="toggleMobileMenu()">Calculators</a>
-            <a href="#appointment" class="block py-2 text-gray-300 hover:text-luxury-gold" onclick="toggleMobileMenu()">VIP Booking</a>
             <hr class="border-luxury-borderDark/40 my-3">
             <button onclick="toggleMobileMenu(); openAdminModal();" class="w-full py-2.5 text-xs border border-luxury-gold text-luxury-gold uppercase tracking-wider rounded">
                 Vault CMS Control
@@ -316,15 +336,18 @@
             <!-- Luxury Gold Mesh Ambient Background -->
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.06)_0%,rgba(0,0,0,0)_80%)]"></div>
             <div class="max-w-5xl mx-auto text-center space-y-8 relative z-10">
-                <span class="text-luxury-gold font-serif text-xs md:text-sm uppercase tracking-[0.5em] block animate-slide-up">Est. 1996 • Absolute Purism</span>
-                <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-wide text-gray-100 uppercase leading-tight">
-                    Pure Gold. <br>
+                <div id="hero-tagline" class="space-y-1 block">
+                    <span class="text-luxury-gold font-serif text-xs md:text-sm uppercase tracking-[0.5em] block">Est. 1996 • Absolute Purism</span>
+                    <span class="font-cursive text-2xl sm:text-3xl text-luxury-gold block italic tracking-wide mt-2">Where Trust Meets Elegance</span>
+                </div>
+                <h1 id="hero-title" class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-wide text-gray-900 dark:text-gray-100 uppercase leading-tight">
+                    <span class="text-black dark:text-gray-100">Pure Gold.</span> <br>
                     <span class="shimmer-gold italic font-cursive font-medium text-4xl sm:text-6xl md:text-8xl capitalize tracking-normal leading-normal">Uncompromised Heritage</span>
                 </h1>
-                <p class="max-w-2xl mx-auto text-sm md:text-base text-gray-400 font-serif font-light tracking-widest leading-relaxed">
+                <p id="hero-desc" class="max-w-2xl mx-auto text-sm md:text-base text-gray-600 dark:text-gray-400 font-serif font-light tracking-widest leading-relaxed">
                     Welcome to <strong class="text-luxury-gold">22 Carats Jewellers</strong>. Explore our hand-crafted, hallmarked masterpieces, monitor real-time metal valuation, verify BIS certificate authenticity, and interactively try on royal collections via live camera.
                 </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <div id="hero-ctas" class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                     <a href="#showroom" class="w-full sm:w-auto px-8 py-4 bg-luxury-gold text-black uppercase font-serif text-xs tracking-[0.2em] hover:bg-luxury-goldHover font-bold transition duration-300 rounded shadow-lg shadow-luxury-gold/10">
                         Explore Showroom
                     </a>
@@ -334,43 +357,131 @@
                 </div>
             </div>
         </section>
-
-        <!-- Live Metal Rates Section -->
         <section id="rates-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-20">
-            <div class="p-8 rounded-lg border border-luxury-borderDark bg-luxury-cardDark/40 backdrop-blur-md relative overflow-hidden">
+            <div class="p-6 md:p-8 rounded-lg border border-luxury-borderDark bg-luxury-cardDark/40 backdrop-blur-md relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-2 h-2 rounded-full bg-emerald-500 animate-ping m-4"></div>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
-                    <div>
-                        <h3 class="font-serif text-xl text-luxury-gold uppercase tracking-widest">Live Valuation</h3>
-                        <p class="text-xs text-gray-400 mt-1">Real-time market indices synced with showroom pricing.</p>
-                        <p class="text-[10px] font-mono text-gray-500 mt-2">LAST SECURE REFRESH: <span id="rates-timestamp" class="text-luxury-gold">2026-06-29 22:24</span></p>
-                    </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    <!-- Left Column: Interactive Cards -->
+                    <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif text-xl text-luxury-gold uppercase tracking-widest">Live Valuation</h3>
+                            <p class="text-xs text-gray-400 mt-1">Real-time market indices synced with showroom pricing.</p>
+                            <p class="text-[10px] font-mono text-gray-500 mt-2">LAST SECURE REFRESH: <span id="rates-timestamp" class="text-luxury-gold">2026-06-29 22:24</span></p>
+                        </div>
 
-                    <!-- 24K Gold -->
-                    <div class="p-4 rounded border border-luxury-borderDark bg-[#141414]/50 hover:border-luxury-gold/50 transition duration-300">
-                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block">Gold 24K (Per Gram)</span>
-                        <div class="flex items-baseline justify-between mt-2">
-                            <span class="font-mono text-2xl font-bold text-gray-200" id="rate-24k">₹7,450.00</span>
-                            <span class="text-xs text-emerald-500 font-mono flex items-center" id="trend-24k"><i data-lucide="trending-up" class="w-3 h-3 mr-0.5"></i> +0.45%</span>
+                        <div class="space-y-3">
+                            <!-- 24K Gold Card -->
+                            <div onclick="selectTrendMetal('gold24k')" id="rate-card-gold24k" class="p-4 rounded border border-luxury-gold bg-[#141414]/80 hover:border-luxury-gold transition duration-300 cursor-pointer select-none">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-serif tracking-widest text-gray-400 uppercase">Gold 24K (Per Gram)</span>
+                                    <span id="rate-badge-gold24k" class="text-[9px] font-mono uppercase bg-luxury-gold/10 text-luxury-gold px-2 py-0.5 rounded border border-luxury-gold/20">Active View</span>
+                                </div>
+                                <div class="flex items-baseline justify-between mt-2">
+                                    <span class="font-mono text-2xl font-bold text-gray-100" id="rate-24k">₹7,450.00</span>
+                                    <span class="text-xs text-emerald-500 font-mono flex items-center" id="trend-24k"><i data-lucide="trending-up" class="w-3 h-3 mr-0.5"></i> +0.45%</span>
+                                </div>
+                            </div>
+
+                            <!-- 22K Gold Card -->
+                            <div onclick="selectTrendMetal('gold22k')" id="rate-card-gold22k" class="p-4 rounded border border-luxury-borderDark bg-[#141414]/30 hover:border-luxury-gold transition duration-300 cursor-pointer select-none">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-serif tracking-widest text-gray-400 uppercase">Gold 22K (Per Gram)</span>
+                                    <span id="rate-badge-gold22k" class="text-[9px] font-mono uppercase bg-transparent text-gray-500 px-2 py-0.5 rounded border border-transparent">View Trend</span>
+                                </div>
+                                <div class="flex items-baseline justify-between mt-2">
+                                    <span class="font-mono text-2xl font-bold text-gray-100" id="rate-22k">₹6,830.00</span>
+                                    <span class="text-xs text-emerald-500 font-mono flex items-center" id="trend-22k"><i data-lucide="trending-up" class="w-3 h-3 mr-0.5"></i> +0.42%</span>
+                                </div>
+                            </div>
+
+                            <!-- Silver Card -->
+                            <div onclick="selectTrendMetal('silver')" id="rate-card-silver" class="p-4 rounded border border-luxury-borderDark bg-[#141414]/30 hover:border-luxury-gold transition duration-300 cursor-pointer select-none">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-serif tracking-widest text-gray-400 uppercase">Silver Pure (Per Gram)</span>
+                                    <span id="rate-badge-silver" class="text-[9px] font-mono uppercase bg-transparent text-gray-500 px-2 py-0.5 rounded border border-transparent">View Trend</span>
+                                </div>
+                                <div class="flex items-baseline justify-between mt-2">
+                                    <span class="font-mono text-2xl font-bold text-gray-100" id="rate-silver">₹92.50</span>
+                                    <span class="text-xs text-red-500 font-mono flex items-center" id="trend-silver"><i data-lucide="trending-down" class="w-3 h-3 mr-0.5"></i> -0.15%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- 22K Gold -->
-                    <div class="p-4 rounded border border-luxury-borderDark bg-[#141414]/50 hover:border-luxury-gold/50 transition duration-300">
-                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block">Gold 22K (Per Gram)</span>
-                        <div class="flex items-baseline justify-between mt-2">
-                            <span class="font-mono text-2xl font-bold text-gray-200" id="rate-22k">₹6,830.00</span>
-                            <span class="text-xs text-emerald-500 font-mono flex items-center" id="trend-22k"><i data-lucide="trending-up" class="w-3 h-3 mr-0.5"></i> +0.42%</span>
+                    <!-- Right Column: Interactive Trend Line Chart -->
+                    <div class="lg:col-span-7 p-6 rounded-lg border border-luxury-borderDark bg-black/40 flex flex-col justify-between relative min-h-[300px]">
+                        <!-- Graph Header -->
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="text-[10px] font-serif uppercase tracking-[0.2em] text-luxury-gold font-bold" id="chart-title-metal">Gold 24K Trend</span>
+                                <h4 class="font-serif text-sm text-gray-300 uppercase tracking-wider">7-Day Market Analytics</h4>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-mono text-gray-500">Fluctuation Range:</span>
+                                <span class="block text-xs font-mono text-luxury-gold font-bold" id="chart-fluctuation-range">₹7,380 — ₹7,450</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Silver -->
-                    <div class="p-4 rounded border border-luxury-borderDark bg-[#141414]/50 hover:border-luxury-gold/50 transition duration-300">
-                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block">Silver Pure (Per Gram)</span>
-                        <div class="flex items-baseline justify-between mt-2">
-                            <span class="font-mono text-2xl font-bold text-gray-200" id="rate-silver">₹92.50</span>
-                            <span class="text-xs text-red-500 font-mono flex items-center" id="trend-silver"><i data-lucide="trending-down" class="w-3 h-3 mr-0.5"></i> -0.15%</span>
+                        <!-- Glowing Interactive Chart SVG -->
+                        <div class="relative w-full h-[180px] bg-black/20 rounded border border-luxury-borderDark/20 overflow-visible" id="rate-chart-container" onmousemove="handleChartHover(event)" onmouseleave="hideChartTooltip()">
+                            <!-- Tooltip -->
+                            <div id="chart-tooltip" class="absolute bg-black/95 border border-luxury-gold text-white text-[10px] font-mono p-2 rounded shadow-xl hidden pointer-events-none z-30 space-y-0.5">
+                                <div id="tooltip-date" class="text-gray-400 uppercase tracking-widest font-bold">Date</div>
+                                <div id="tooltip-price" class="text-luxury-gold font-bold">Price: ₹0.00</div>
+                            </div>
+                            
+                            <svg id="rate-svg" class="w-full h-full cursor-crosshair" viewBox="0 0 500 180" preserveAspectRatio="none">
+                                <!-- SVG Gradient Definition -->
+                                <defs>
+                                    <linearGradient id="gold-chart-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.3"></stop>
+                                        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.0"></stop>
+                                    </linearGradient>
+                                    <linearGradient id="silver-chart-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#9CA3AF" stop-opacity="0.3"></stop>
+                                        <stop offset="100%" stop-color="#9CA3AF" stop-opacity="0.0"></stop>
+                                    </linearGradient>
+                                    <linearGradient id="gold-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#F5D061"></stop>
+                                        <stop offset="50%" stop-color="#FFFDF7"></stop>
+                                        <stop offset="100%" stop-color="#B5942B"></stop>
+                                    </linearGradient>
+                                    <linearGradient id="silver-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#9CA3AF"></stop>
+                                        <stop offset="50%" stop-color="#FFFDF7"></stop>
+                                        <stop offset="100%" stop-color="#D1D5DB"></stop>
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Gridlines -->
+                                <line x1="0" y1="45" x2="500" y2="45" stroke="#222" stroke-width="0.75" stroke-dasharray="2 2"></line>
+                                <line x1="0" y1="90" x2="500" y2="90" stroke="#222" stroke-width="0.75" stroke-dasharray="2 2"></line>
+                                <line x1="0" y1="135" x2="500" y2="135" stroke="#222" stroke-width="0.75" stroke-dasharray="2 2"></line>
+
+                                <!-- Area Path -->
+                                <path id="chart-area-path" d="" fill="url(#gold-chart-grad)"></path>
+
+                                <!-- Line Path -->
+                                <path id="chart-line-path" d="" fill="none" stroke="url(#gold-line-grad)" stroke-width="2.5"></path>
+
+                                <!-- Hover vertical bar -->
+                                <line id="chart-hover-line" x1="-10" y1="0" x2="-10" y2="180" stroke="rgba(212,175,55,0.4)" stroke-width="1.2" stroke-dasharray="3 3"></line>
+
+                                <!-- Hover dot -->
+                                <circle id="chart-hover-dot" cx="-10" cy="-10" r="5" fill="#FFFDF7" stroke="#D4AF37" stroke-width="2"></circle>
+                            </svg>
+                        </div>
+
+                        <!-- Dates labels -->
+                        <div class="flex justify-between text-[9px] font-mono text-gray-500 mt-2 border-t border-luxury-borderDark/20 pt-2" id="chart-date-labels">
+                            <span>Jun 24</span>
+                            <span>Jun 25</span>
+                            <span>Jun 26</span>
+                            <span>Jun 27</span>
+                            <span>Jun 28</span>
+                            <span>Jun 29</span>
+                            <span>Jun 30</span>
                         </div>
                     </div>
                 </div>
@@ -680,73 +791,7 @@
             </div>
         </section>
 
-        <!-- VIP Private Showroom Appointment Booking -->
-        <section id="appointment" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-luxury-borderDark relative">
-            <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <div class="lg:col-span-5 space-y-6">
-                    <span class="font-cursive text-2xl text-luxury-gold">Signature Hospitality</span>
-                    <h2 class="font-serif text-3xl tracking-widest uppercase">VIP Showroom Private Session</h2>
-                    <div class="w-16 h-[1px] bg-luxury-gold mt-2"></div>
-                    <p class="text-sm text-gray-400 font-serif leading-relaxed">
-                        Secure an exclusive bridal salon viewing room with a dedicated gold artisan advisor. Complimented by custom gemstone recommendations and champagne refreshments.
-                    </p>
-                    <div class="p-4 border border-luxury-borderDark rounded bg-[#111] space-y-2">
-                        <span class="text-[9px] font-mono tracking-widest text-luxury-gold uppercase block">SHOWROOM SCHEDULES</span>
-                        <p class="text-xs text-gray-400 font-serif">Monday — Sunday: 10:30 AM to 08:30 PM</p>
-                        <p class="text-[10px] text-gray-500 font-serif">Valet Parking & Executive Guard escorts are fully integrated.</p>
-                    </div>
-                </div>
 
-                <div class="lg:col-span-7">
-                    <form id="appointment-form" onsubmit="submitAppointment(event)" class="p-6 md:p-8 rounded-xl border border-luxury-borderDark bg-luxury-cardDark/30 backdrop-blur-md space-y-4 font-serif">
-                        <h3 class="font-serif text-sm uppercase tracking-widest text-luxury-gold mb-4">Vault Session Placement</h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">YOUR NAME</label>
-                                <input type="text" id="apt-name" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white">
-                            </div>
-                            <div>
-                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PHONE NUMBER</label>
-                                <input type="tel" id="apt-phone" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PREFERRED DATE</label>
-                                <input type="date" id="apt-date" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white font-mono">
-                            </div>
-                            <div>
-                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PREFERRED TIMESLOT</label>
-                                <select id="apt-time" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white font-mono">
-                                    <option value="11:00 AM">11:00 AM — Morning Private Viewing</option>
-                                    <option value="01:30 PM">01:30 PM — Afternoon Session</option>
-                                    <option value="04:00 PM">04:00 PM — Tea-Time VIP Fitting</option>
-                                    <option value="06:30 PM">06:30 PM — Evening Heritage Viewing</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PURPOSE OF EXCLUSIVITY</label>
-                            <select id="apt-purpose" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white font-serif">
-                                <option value="Bridal Bridal Trousseau">Bridal Bridal Trousseau Fitting</option>
-                                <option value="Custom Artisan Design">Custom Artisan Design Consultations</option>
-                                <option value="Bespoke Gold Investment">High-Net Gold Bars Acquisition</option>
-                                <option value="Anniversary Commemoration">Anniversary Collection Viewing</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="w-full py-3 bg-luxury-gold text-black uppercase font-serif text-xs tracking-widest font-bold hover:bg-luxury-goldHover transition duration-300 rounded">
-                            Reserve Showroom Session
-                        </button>
-                    </form>
-                </div>
-
-            </div>
-        </section>
 
         <!-- Dynamic Product Detail Drawer / Overlay -->
         <div id="product-detail-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[1000] flex items-center justify-center p-4 hidden">
@@ -862,6 +907,13 @@
                 silver: 92.50,
                 lastRefresh: "2026-06-29 22:24"
             },
+            selectedMetalTrend: 'gold24k',
+            historicalTrends: {
+                gold24k: [7380, 7395, 7410, 7402, 7425, 7435, 7450],
+                gold22k: [6760, 6780, 6795, 6788, 6810, 6820, 6830],
+                silver: [94.20, 93.80, 93.50, 93.10, 92.90, 92.70, 92.50]
+            },
+            trendDates: ["Jun 24", "Jun 25", "Jun 26", "Jun 27", "Jun 28", "Jun 29", "Jun 30"],
             campaign: {
                 text: "FESTIVAL OF ROYAL GOLD: GET 10% OFF ON MAKING CHARGES",
                 expiry: "2026-07-15T23:59:59",
@@ -1063,8 +1115,175 @@
 
         // ENTRANCE REVEAL ANIMATIONS via GSAP
         function runEntranceAnimations() {
-            gsap.from("header", { y: -50, opacity: 0, duration: 1, ease: "power3.out" });
-            gsap.from("#rates-section", { y: 30, opacity: 0, duration: 1.2, delay: 0.5, ease: "power3.out" });
+            // Elegant sequential reveal for premium look
+            gsap.from("header", { y: -60, opacity: 0, duration: 1.2, ease: "power4.out" });
+            gsap.from("#hero-tagline", { y: 30, opacity: 0, duration: 1.2, delay: 0.15, ease: "power4.out" });
+            gsap.from("#hero-title", { y: 40, opacity: 0, duration: 1.4, delay: 0.3, ease: "power4.out" });
+            gsap.from("#hero-desc", { y: 30, opacity: 0, duration: 1.2, delay: 0.5, ease: "power4.out" });
+            gsap.from("#hero-ctas", { y: 20, opacity: 0, duration: 1, delay: 0.7, ease: "power4.out" });
+            gsap.from("#rates-section", { y: 40, opacity: 0, duration: 1.4, delay: 0.9, ease: "power4.out" });
+        }
+
+        // INTERACTIVE LIVE RATE CHART LOGIC
+        function selectTrendMetal(metalType) {
+            AppState.selectedMetalTrend = metalType;
+            
+            // Switch active classes & badges
+            const metals = ['gold24k', 'gold22k', 'silver'];
+            metals.forEach(m => {
+                const card = document.getElementById(`rate-card-${m}`);
+                const badge = document.getElementById(`rate-badge-${m}`);
+                if (m === metalType) {
+                    card.classList.remove('border-luxury-borderDark', 'bg-[#141414]/30');
+                    card.classList.add('border-luxury-gold', 'bg-[#141414]/80');
+                    badge.innerText = 'Active View';
+                    badge.classList.remove('text-gray-500', 'border-transparent');
+                    badge.classList.add('bg-luxury-gold/10', 'text-luxury-gold', 'border-luxury-gold/20');
+                } else {
+                    card.classList.remove('border-luxury-gold', 'bg-[#141414]/80');
+                    card.classList.add('border-luxury-borderDark', 'bg-[#141414]/30');
+                    badge.innerText = 'View Trend';
+                    badge.classList.remove('bg-luxury-gold/10', 'text-luxury-gold', 'border-luxury-gold/20');
+                    badge.classList.add('text-gray-500', 'border-transparent');
+                }
+            });
+
+            // Re-render chart with animated transition
+            drawRateChart(metalType);
+
+            // Staggered title and range entry
+            gsap.fromTo("#chart-title-metal, #chart-fluctuation-range", 
+                { opacity: 0.3, y: -4 },
+                { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+            );
+        }
+
+        function drawRateChart(metalType) {
+            const trend = AppState.historicalTrends[metalType];
+            const maxVal = Math.max(...trend);
+            const minVal = Math.min(...trend);
+            const range = maxVal - minVal;
+
+            // Update title labels
+            let titleText = "Gold 24K Trend";
+            if (metalType === 'gold22k') titleText = "Gold 22K Trend";
+            if (metalType === 'silver') titleText = "Silver Trend";
+            document.getElementById("chart-title-metal").innerText = titleText;
+            document.getElementById("chart-fluctuation-range").innerText = `₹${minVal.toLocaleString('en-IN')} — ₹${maxVal.toLocaleString('en-IN')}`;
+
+            // Define viewport SVG space
+            const width = 500;
+            const height = 180;
+            const padding = 20;
+            const chartHeight = height - (padding * 2);
+
+            // Plot coordinates
+            const points = [];
+            for (let i = 0; i < trend.length; i++) {
+                const x = (i / (trend.length - 1)) * width;
+                const normalizedY = range === 0 ? 0.5 : (trend[i] - minVal) / range;
+                const y = height - padding - (normalizedY * chartHeight);
+                points.push({ x, y, value: trend[i], date: AppState.trendDates[i] });
+            }
+
+            // Create smooth Bezier curve string
+            let lineD = `M ${points[0].x} ${points[0].y}`;
+            for (let i = 1; i < points.length; i++) {
+                const prev = points[i - 1];
+                const curr = points[i];
+                const cpX1 = prev.x + (curr.x - prev.x) / 3;
+                const cpY1 = prev.y;
+                const cpX2 = prev.x + 2 * (curr.x - prev.x) / 3;
+                const cpY2 = curr.y;
+                lineD += ` C ${cpX1} ${cpY1}, ${cpX2} ${cpY2}, ${curr.x} ${curr.y}`;
+            }
+
+            const areaD = `${lineD} L ${width} ${height} L 0 ${height} Z`;
+
+            const linePath = document.getElementById("chart-line-path");
+            const areaPath = document.getElementById("chart-area-path");
+
+            if (metalType === 'silver') {
+                linePath.setAttribute("stroke", "url(#silver-line-grad)");
+                areaPath.setAttribute("fill", "url(#silver-chart-grad)");
+            } else {
+                linePath.setAttribute("stroke", "url(#gold-line-grad)");
+                areaPath.setAttribute("fill", "url(#gold-chart-grad)");
+            }
+
+            // Set final D attributes
+            linePath.setAttribute("d", lineD);
+            areaPath.setAttribute("d", areaD);
+
+            // Premium animated path reveal
+            const pathLength = linePath.getTotalLength();
+            linePath.style.strokeDasharray = pathLength;
+            linePath.style.strokeDashoffset = pathLength;
+
+            gsap.to(linePath, {
+                strokeDashoffset: 0,
+                duration: 1.2,
+                ease: "power3.out"
+            });
+
+            gsap.fromTo(areaPath,
+                { opacity: 0 },
+                { opacity: 1, duration: 1.5, ease: "power2.out" }
+            );
+
+            // Cache plotted points for tracking
+            window.chartPoints = points;
+        }
+
+        function handleChartHover(e) {
+            if (!window.chartPoints) return;
+            const container = document.getElementById("rate-chart-container");
+            const rect = container.getBoundingClientRect();
+            
+            // Map cursor pixel location inside container to virtual SVG viewbox space (0 to 500)
+            const mouseX = e.clientX - rect.left;
+            const containerWidth = rect.width;
+            const svgX = (mouseX / containerWidth) * 500;
+
+            // Locate closest plotted point coordinates
+            let closest = window.chartPoints[0];
+            let minDist = Math.abs(window.chartPoints[0].x - svgX);
+            for (let i = 1; i < window.chartPoints.length; i++) {
+                const dist = Math.abs(window.chartPoints[i].x - svgX);
+                if (dist < minDist) {
+                    minDist = dist;
+                    closest = window.chartPoints[i];
+                }
+            }
+
+            // Move custom vertical bar and hover dot
+            const hoverLine = document.getElementById("chart-hover-line");
+            const hoverDot = document.getElementById("chart-hover-dot");
+            hoverLine.setAttribute("x1", closest.x);
+            hoverLine.setAttribute("x2", closest.x);
+            hoverDot.setAttribute("cx", closest.x);
+            hoverDot.setAttribute("cy", closest.y);
+
+            // Render custom premium micro-tooltip
+            const tooltip = document.getElementById("chart-tooltip");
+            tooltip.classList.remove("hidden");
+
+            const pctX = (closest.x / 500) * 100;
+            const pctY = (closest.y / 180) * 100;
+
+            tooltip.style.left = `calc(${pctX}% - 50px)`;
+            tooltip.style.top = `calc(${pctY}% - 65px)`;
+
+            document.getElementById("tooltip-date").innerText = closest.date;
+            document.getElementById("tooltip-price").innerText = `Price: ₹${closest.value.toLocaleString('en-IN')}`;
+        }
+
+        function hideChartTooltip() {
+            document.getElementById("chart-tooltip").classList.add("hidden");
+            document.getElementById("chart-hover-line").setAttribute("x1", "-10");
+            document.getElementById("chart-hover-line").setAttribute("x2", "-10");
+            document.getElementById("chart-hover-dot").setAttribute("cx", "-10");
+            document.getElementById("chart-hover-dot").setAttribute("cy", "-10");
         }
 
         // DYNAMIC RENDERING FUNCTIONS
@@ -1073,6 +1292,9 @@
             document.getElementById("rate-22k").innerText = `₹${AppState.rates.gold22k.toLocaleString('en-IN')}`;
             document.getElementById("rate-silver").innerText = `₹${AppState.rates.silver.toLocaleString('en-IN')}`;
             document.getElementById("rates-timestamp").innerText = AppState.rates.lastRefresh;
+            
+            // Draw chart initially
+            drawRateChart(AppState.selectedMetalTrend);
         }
 
         // Render Showroom Catalog Grid
@@ -1108,19 +1330,25 @@
                     </div>
                     <div class="mt-4 space-y-2">
                         <div class="flex justify-between items-start">
-                            <h3 class="font-serif text-base text-gray-200 group-hover:text-luxury-gold transition duration-300 leading-tight">${item.name}</h3>
+                            <h3 class="font-serif text-base text-gray-800 dark:text-gray-200 group-hover:text-luxury-gold transition duration-300 leading-tight">${item.name}</h3>
                             <span class="font-mono text-xs font-bold text-luxury-gold shrink-0 pl-2">₹${computePrice(item).toLocaleString('en-IN')}</span>
                         </div>
-                        <p class="text-[11px] text-gray-400 font-mono flex flex-wrap gap-2">
-                            <span>PURITY: <strong class="text-white">${item.purity}</strong></span>
+                        <p class="text-[11px] text-gray-500 dark:text-gray-400 font-mono flex flex-wrap gap-2">
+                            <span>PURITY: <strong class="text-gray-900 dark:text-white">${item.purity}</strong></span>
                             <span>•</span>
-                            <span>WEIGHT: <strong class="text-white">${item.weight}g</strong></span>
+                            <span>WEIGHT: <strong class="text-gray-900 dark:text-white">${item.weight}g</strong></span>
                         </p>
                     </div>
                 `;
                 grid.appendChild(card);
             });
             lucide.createIcons();
+
+            // Premium staggered GSAP animations when cards are populated/filtered
+            gsap.fromTo("#catalog-grid > div", 
+                { opacity: 0, y: 20, scale: 0.98 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.05, ease: "power3.out" }
+            );
         }
 
         // Render Quick-Try On Gallery strip
@@ -1517,27 +1745,31 @@
                 document.documentElement.classList.remove("dark");
                 sun.classList.remove("hidden");
                 moon.classList.add("hidden");
+                gsap.set("body", { backgroundColor: "#FFFDF7", color: "#1c1c1c" });
             } else {
                 document.documentElement.classList.add("dark");
                 document.documentElement.classList.remove("light");
                 sun.classList.add("hidden");
                 moon.classList.remove("hidden");
+                gsap.set("body", { backgroundColor: "#0a0a0a", color: "#f3f4f6" });
             }
 
             toggle.onclick = () => {
-                document.documentElement.classList.toggle("light");
-                const isLight = document.documentElement.classList.contains("light");
-                
-                if (isLight) {
-                    localStorage.setItem("22c_theme", 'light');
-                    sun.classList.remove("hidden");
-                    moon.classList.add("hidden");
-                    gsap.to("body", { backgroundColor: "#FFFDF7", color: "#1c1c1c", duration: 0.5 });
-                } else {
+                const isCurrentlyLight = document.documentElement.classList.contains("light");
+                if (isCurrentlyLight) {
+                    document.documentElement.classList.remove("light");
+                    document.documentElement.classList.add("dark");
                     localStorage.setItem("22c_theme", 'dark');
                     sun.classList.add("hidden");
                     moon.classList.remove("hidden");
                     gsap.to("body", { backgroundColor: "#0a0a0a", color: "#f3f4f6", duration: 0.5 });
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.classList.add("light");
+                    localStorage.setItem("22c_theme", 'light');
+                    sun.classList.remove("hidden");
+                    moon.classList.add("hidden");
+                    gsap.to("body", { backgroundColor: "#FFFDF7", color: "#1c1c1c", duration: 0.5 });
                 }
             };
         }
