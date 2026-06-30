@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22 Carats Jewellers - Bespoke Luxury Showroom</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP for Luxury Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        luxury: {
+                            gold: '#D4AF37',
+                            goldHover: '#B5942B',
+                            champagne: '#F3E5AB',
+                            darkBg: '#0a0a0a',
+                            lightBg: '#FFFDF7',
+                            cardDark: '#121212',
+                            cardLight: '#FFFFFF',
+                            borderDark: 'rgba(212, 175, 55, 0.2)',
+                            borderLight: 'rgba(170, 130, 10, 0.15)'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'Cormorant Garamond', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        cursive: ['Great Vibes', 'cursive'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        .light ::-webkit-scrollbar-track { background: #FFFDF7; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
+
+        /* Custom Spotlight Cursor (can be turned on/off) */
+        .cursor-spotlight {
+            pointer-events: none;
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0,0,0,0) 70%);
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+            transition: opacity 0.3s ease;
+        }
+        .light .cursor-spotlight {
+            background: radial-gradient(circle, rgba(170, 130, 10, 0.06) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        /* Ambient gold shimmer animation */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .shimmer-gold {
+            background: linear-gradient(90deg, #D4AF37 25%, #FFF5D1 50%, #D4AF37 75%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
+        }
+        .shimmer-bg {
+            background: linear-gradient(90deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.3) 50%, rgba(212,175,55,0.1) 100%);
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        /* Custom UI Transitions and Theme Overrides */
+        .theme-transition, 
+        .bg-luxury-cardDark,
+        .bg-luxury-cardDark\/30,
+        .bg-luxury-cardDark\/40,
+        .bg-luxury-cardDark\/50,
+        .bg-luxury-darkBg,
+        .bg-luxury-darkBg\/80,
+        .text-gray-100,
+        .text-gray-200,
+        .text-gray-300,
+        .text-gray-400,
+        .text-gray-500,
+        .text-white,
+        .text-luxury-champagne,
+        input, select, textarea, hr, border, button, tr {
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Luxury Light Mode Overrides */
+        .light body {
+            background-color: #FFFDF7 !important;
+            color: #1a1a1a !important;
+        }
+
+        /* Backgrounds transition */
+        .light .bg-luxury-darkBg {
+            background-color: #FFFDF7 !important;
+        }
+        .light .bg-luxury-darkBg\/80 {
+            background-color: rgba(255, 253, 247, 0.8) !important;
+        }
+        .light .bg-luxury-cardDark {
+            background-color: #FFFFFF !important;
+        }
+        .light .bg-luxury-cardDark\/30,
+        .light .bg-luxury-cardDark\/40,
+        .light .bg-luxury-cardDark\/50 {
+            background-color: rgba(255, 255, 255, 0.75) !important;
+            backdrop-filter: blur(12px) !important;
+        }
+        .light .bg-[#141414]\/50,
+        .light .bg-[#111],
+        .light .bg-[#0c0c0c],
+        .light .bg-black\/30,
+        .light .bg-black\/40,
+        .light .bg-black\/50,
+        .light .bg-[#0a0a0a] {
+            background-color: #FFFFFF !important;
+        }
+        .light .bg-[#050505] {
+            background-color: #FAF8F2 !important;
+        }
+        .light .bg-luxury-gold\/15 {
+            background-color: rgba(212, 175, 55, 0.1) !important;
+        }
+
+        /* Text colors - force light mode visibility */
+        .light .text-gray-100 { color: #1a1a1a !important; }
+        .light .text-gray-200 { color: #2a2a2a !important; }
+        .light .text-gray-300 { color: #3a3a3a !important; }
+        .light .text-gray-400 { color: #4d4d4d !important; }
+        .light .text-gray-500 { color: #6e6e6e !important; }
+        .light .text-white { color: #111111 !important; }
+        .light .text-luxury-champagne { color: #8A6E1A !important; }
+
+        /* Specific text hover protection */
+        .light .hover\:text-white:hover {
+            color: #D4AF37 !important;
+        }
+        .light .group:hover .group-hover\:text-luxury-gold {
+            color: #B5942B !important;
+        }
+
+        /* Light mode majestic gold shimmer text */
+        .light .shimmer-gold {
+            background: linear-gradient(90deg, #A8811A 25%, #E5C158 50%, #A8811A 75%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* Inputs, select, and textareas styling */
+        .light input, 
+        .light select, 
+        .light textarea {
+            background-color: #FFFFFF !important;
+            color: #1a1a1a !important;
+            border-color: rgba(170, 130, 10, 0.25) !important;
+        }
+        .light input::placeholder, 
+        .light textarea::placeholder {
+            color: #8c8c8c !important;
+        }
+        .light input:focus, 
+        .light select:focus, 
+        .light textarea:focus {
+            border-color: #D4AF37 !important;
+        }
+
+        /* Borders and separators */
+        .light .border-luxury-borderDark,
+        .light .border-luxury-borderDark\/60,
+        .light .border-luxury-borderDark\/40,
+        .light .border-luxury-borderDark\/30,
+        .light .border-luxury-borderDark\/20,
+        .light .border-luxury-borderDark\/10 {
+            border-color: rgba(170, 130, 10, 0.15) !important;
+        }
+        .light .border-luxury-gold\/40,
+        .light .border-luxury-gold\/30,
+        .light .border-luxury-gold\/20,
+        .light .border-luxury-gold\/50 {
+            border-color: rgba(212, 175, 55, 0.35) !important;
+        }
+        .light hr {
+            border-color: rgba(170, 130, 10, 0.1) !important;
+        }
+
+        /* Specific modifications for modals & admin panels */
+        .light #admin-modal > div,
+        .light #product-detail-modal > div {
+            background-color: #FFFDF7 !important;
+            border-color: rgba(212, 175, 55, 0.4) !important;
+        }
+        .light #admin-dashboard-view {
+            background-color: #FFFFFF !important;
+        }
+        .light #admin-login-view input {
+            background-color: #FAF8F2 !important;
+        }
+        .light .hover\:bg-luxury-gold\/5:hover {
+            background-color: rgba(212, 175, 55, 0.08) !important;
+        }
+        .light tr.border-b {
+            border-color: rgba(170, 130, 10, 0.1) !important;
+        }
+
+        /* Try-On Gallery Strip button backdrops */
+        .light #tryon-gallery-strip button {
+            background-color: #FFFFFF !important;
+            border-color: rgba(170, 130, 10, 0.15) !important;
+        }
+    </style>
+</head>
+<body class="bg-luxury-darkBg text-gray-100 font-sans theme-transition overflow-x-hidden min-h-screen">
+    <!-- Spotlight Cursor -->
+    <div id="spotlight" class="cursor-spotlight hidden md:block"></div>
+
+    <!-- Loading Screen Overlay -->
+    <div id="loader" class="fixed inset-0 bg-[#0a0a0a] z-[10000] flex flex-col items-center justify-center">
+        <div class="text-center space-y-6">
+            <h1 class="font-serif text-3xl md:text-5xl tracking-[0.3em] text-luxury-gold uppercase animate-pulse">22 CARATS</h1>
+            <p class="font-cursive text-xl md:text-2xl text-luxury-champagne">Bespoke luxury Jewellers</p>
+            <div class="w-48 h-[1px] bg-luxury-borderDark mx-auto relative overflow-hidden">
+                <div id="loader-bar" class="absolute top-0 left-0 h-full w-0 bg-luxury-gold"></div>
+            </div>
+            <p id="loader-percent" class="font-mono text-xs tracking-widest text-luxury-gold">0%</p>
+        </div>
+    </div>
+
+    <!-- Active Promotion Banner / Countdown CMS Controlled -->
+    <div id="promo-banner" class="bg-gradient-to-r from-amber-950 via-luxury-darkBg to-amber-950 border-b border-luxury-gold/30 text-center py-2 px-4 text-xs md:text-sm tracking-widest text-luxury-gold flex items-center justify-between z-40 relative">
+        <span class="flex-1 text-center font-serif text-[10px] md:text-xs">
+            ✨ <span id="promo-text">FESTIVAL OF ROYAL GOLD: GET 10% OFF ON MAKING CHARGES</span> 
+            — <span id="promo-timer" class="font-mono text-white font-semibold">00D : 00H : 00M : 00S</span> LEFT!
+        </span>
+        <button onclick="document.getElementById('promo-banner').classList.add('hidden')" class="text-luxury-gold hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-luxury-darkBg/80 border-b border-luxury-borderDark theme-transition">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo / Identity -->
+            <a href="#" class="flex items-center space-x-3 group" id="navbar-brand">
+                <div class="w-12 h-12 rounded-full border border-luxury-gold/50 flex items-center justify-center bg-[#111] overflow-hidden group-hover:border-luxury-gold transition duration-500">
+                    <img id="brand-logo-img" src="logo.jpg" alt="22C" class="w-full h-full object-cover error-fallback" onerror="this.style.display='none'; document.getElementById('logo-fallback').classList.remove('hidden')">
+                    <div id="logo-fallback" class="hidden font-serif text-luxury-gold font-bold text-base tracking-widest">22C</div>
+                </div>
+                <div class="hidden sm:block">
+                    <span class="block font-serif tracking-[0.2em] text-lg text-luxury-gold uppercase leading-none font-semibold">22 Carats</span>
+                    <span class="block font-cursive text-xs text-gray-400 mt-1">Fine Artistry</span>
+                </div>
+            </a>
+
+            <!-- Central Links (Desktop) -->
+            <div class="hidden lg:flex items-center space-x-6 font-serif text-xs uppercase tracking-widest">
+                <a href="#showroom" class="text-gray-300 hover:text-luxury-gold transition">Showroom</a>
+                <a href="#rates-section" class="text-gray-300 hover:text-luxury-gold transition">Live Rates</a>
+                <a href="#tryon" class="text-luxury-gold hover:text-white font-medium flex items-center gap-1 transition"><span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span> Live Try-On</a>
+                <a href="#verification" class="text-gray-300 hover:text-luxury-gold transition">Certificate Verify</a>
+                <a href="#calculators" class="text-gray-300 hover:text-luxury-gold transition">Calculators</a>
+                <a href="#appointment" class="text-gray-300 hover:text-luxury-gold transition">VIP Booking</a>
+            </div>
+
+            <!-- Utilities (Theme, Admin & Mobile Toggle) -->
+            <div class="flex items-center space-x-3">
+                <button id="theme-toggle" class="p-2 rounded-full border border-luxury-borderDark hover:bg-luxury-gold/10 text-luxury-gold transition" title="Toggle Showroom Ambience">
+                    <i data-lucide="sun" id="sun-icon" class="w-4 h-4 hidden"></i>
+                    <i data-lucide="moon" id="moon-icon" class="w-4 h-4"></i>
+                </button>
+                <button onclick="openAdminModal()" class="hidden md:flex items-center gap-2 px-4 py-2 text-[10px] uppercase font-serif tracking-widest border border-luxury-gold/50 text-luxury-gold hover:bg-luxury-gold hover:text-black rounded transition">
+                    <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Vault CMS
+                </button>
+                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded border border-luxury-borderDark text-luxury-gold">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (Drawer) -->
+        <div id="mobile-menu" class="hidden lg:hidden border-b border-luxury-borderDark bg-luxury-darkBg px-4 py-6 space-y-4 font-serif text-sm tracking-widest text-center">
+            <a href="#showroom" class="block py-2 text-gray-300 hover:text-luxury-gold" onclick="toggleMobileMenu()">Showroom</a>
+            <a href="#rates-section" class="block py-2 text-gray-300 hover:text-luxury-gold" onclick="toggleMobileMenu()">Live Rates</a>
+            <a href="#tryon" class="block py-2 text-luxury-gold hover:text-white" onclick="toggleMobileMenu()">AR Live Try-On</a>
+            <a href="#verification" class="block py-2 text-gray-300 hover:text-luxury-gold" onclick="toggleMobileMenu()">Certificate Verify</a>
+            <a href="#calculators" class="block py-2 text-gray-300 hover:text-luxury-gold" onclick="toggleMobileMenu()">Calculators</a>
+            <a href="#appointment" class="block py-2 text-gray-300 hover:text-luxury-gold" onclick="toggleMobileMenu()">VIP Booking</a>
+            <hr class="border-luxury-borderDark/40 my-3">
+            <button onclick="toggleMobileMenu(); openAdminModal();" class="w-full py-2.5 text-xs border border-luxury-gold text-luxury-gold uppercase tracking-wider rounded">
+                Vault CMS Control
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative">
+        <!-- Hero Section -->
+        <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 px-4">
+            <!-- Luxury Gold Mesh Ambient Background -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.06)_0%,rgba(0,0,0,0)_80%)]"></div>
+            <div class="max-w-5xl mx-auto text-center space-y-8 relative z-10">
+                <span class="text-luxury-gold font-serif text-xs md:text-sm uppercase tracking-[0.5em] block animate-slide-up">Est. 1996 • Absolute Purism</span>
+                <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-wide text-gray-100 uppercase leading-tight">
+                    Pure Gold. <br>
+                    <span class="shimmer-gold italic font-cursive font-medium text-4xl sm:text-6xl md:text-8xl capitalize tracking-normal leading-normal">Uncompromised Heritage</span>
+                </h1>
+                <p class="max-w-2xl mx-auto text-sm md:text-base text-gray-400 font-serif font-light tracking-widest leading-relaxed">
+                    Welcome to <strong class="text-luxury-gold">22 Carats Jewellers</strong>. Explore our hand-crafted, hallmarked masterpieces, monitor real-time metal valuation, verify BIS certificate authenticity, and interactively try on royal collections via live camera.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <a href="#showroom" class="w-full sm:w-auto px-8 py-4 bg-luxury-gold text-black uppercase font-serif text-xs tracking-[0.2em] hover:bg-luxury-goldHover font-bold transition duration-300 rounded shadow-lg shadow-luxury-gold/10">
+                        Explore Showroom
+                    </a>
+                    <a href="#tryon" class="w-full sm:w-auto px-8 py-4 border border-luxury-gold text-luxury-gold uppercase font-serif text-xs tracking-[0.2em] hover:bg-luxury-gold/10 transition duration-300 rounded">
+                        Virtual Fitting Room
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Metal Rates Section -->
+        <section id="rates-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-20">
+            <div class="p-8 rounded-lg border border-luxury-borderDark bg-luxury-cardDark/40 backdrop-blur-md relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-2 h-2 rounded-full bg-emerald-500 animate-ping m-4"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
+                    <div>
+                        <h3 class="font-serif text-xl text-luxury-gold uppercase tracking-widest">Live Valuation</h3>
+                        <p class="text-xs text-gray-400 mt-1">Real-time market indices synced with showroom pricing.</p>
+                        <p class="text-[10px] font-mono text-gray-500 mt-2">LAST SECURE REFRESH: <span id="rates-timestamp" class="text-luxury-gold">2026-06-29 22:24</span></p>
+                    </div>
+
+                    <!-- 24K Gold -->
+                    <div class="p-4 rounded border border-luxury-borderDark bg-[#141414]/50 hover:border-luxury-gold/50 transition duration-300">
+                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block">Gold 24K (Per Gram)</span>
+                        <div class="flex items-baseline justify-between mt-2">
+                            <span class="font-mono text-2xl font-bold text-gray-200" id="rate-24k">₹7,450.00</span>
+                            <span class="text-xs text-emerald-500 font-mono flex items-center" id="trend-24k"><i data-lucide="trending-up" class="w-3 h-3 mr-0.5"></i> +0.45%</span>
+                        </div>
+                    </div>
+
+                    <!-- 22K Gold -->
+                    <div class="p-4 rounded border border-luxury-borderDark bg-[#141414]/50 hover:border-luxury-gold/50 transition duration-300">
+                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block">Gold 22K (Per Gram)</span>
+                        <div class="flex items-baseline justify-between mt-2">
+                            <span class="font-mono text-2xl font-bold text-gray-200" id="rate-22k">₹6,830.00</span>
+                            <span class="text-xs text-emerald-500 font-mono flex items-center" id="trend-22k"><i data-lucide="trending-up" class="w-3 h-3 mr-0.5"></i> +0.42%</span>
+                        </div>
+                    </div>
+
+                    <!-- Silver -->
+                    <div class="p-4 rounded border border-luxury-borderDark bg-[#141414]/50 hover:border-luxury-gold/50 transition duration-300">
+                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block">Silver Pure (Per Gram)</span>
+                        <div class="flex items-baseline justify-between mt-2">
+                            <span class="font-mono text-2xl font-bold text-gray-200" id="rate-silver">₹92.50</span>
+                            <span class="text-xs text-red-500 font-mono flex items-center" id="trend-silver"><i data-lucide="trending-down" class="w-3 h-3 mr-0.5"></i> -0.15%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Digital Gallery & Showroom Management Catalog -->
+        <section id="showroom" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center space-y-4 mb-12">
+                <span class="font-cursive text-2xl text-luxury-gold block">Royal Masterpieces</span>
+                <h2 class="font-serif text-3xl md:text-4xl tracking-widest uppercase">The Heritage Catalog</h2>
+                <div class="w-16 h-[1px] bg-luxury-gold mx-auto mt-2"></div>
+            </div>
+
+            <!-- Smart AI Search Concierge Input -->
+            <div class="max-w-2xl mx-auto mb-12">
+                <div class="relative">
+                    <input type="text" id="ai-search-input" placeholder="✨ Speak to the Concierge (e.g., 'bridal jewelry under 60g' or 'diamond ring')" class="w-full px-5 py-4 pl-12 bg-luxury-cardDark/50 border border-luxury-borderDark rounded-lg font-serif text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-luxury-gold shadow-inner transition duration-300">
+                    <i data-lucide="sparkles" class="absolute left-4 top-1/2 -translate-y-1/2 text-luxury-gold w-5 h-5 animate-pulse"></i>
+                    <button onclick="triggerAISearch()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-luxury-gold text-black px-4 py-1.5 font-serif text-xs uppercase tracking-wider rounded font-semibold hover:bg-luxury-goldHover transition">Inquire</button>
+                </div>
+                <!-- AI Status Output -->
+                <div id="ai-concierge-response" class="hidden mt-3 p-4 bg-luxury-gold/5 border border-luxury-gold/20 rounded text-xs leading-relaxed text-luxury-champagne font-serif flex items-start gap-3">
+                    <i data-lucide="message-square" class="w-4 h-4 shrink-0 mt-0.5 text-luxury-gold"></i>
+                    <div>
+                        <strong class="text-luxury-gold">CONCIERGE ASSISTANT:</strong>
+                        <span id="ai-response-text">Checking available vault collections...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Tabs and Filters -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10 font-serif text-xs tracking-widest uppercase" id="category-filters">
+                <button onclick="filterCategory('all')" class="px-6 py-2.5 rounded border border-luxury-gold bg-luxury-gold text-black font-semibold transition duration-300" id="filter-btn-all">All Collections</button>
+                <button onclick="filterCategory('gold')" class="px-6 py-2.5 rounded border border-luxury-borderDark hover:border-luxury-gold transition duration-300" id="filter-btn-gold">Gold Sets</button>
+                <button onclick="filterCategory('diamond')" class="px-6 py-2.5 rounded border border-luxury-borderDark hover:border-luxury-gold transition duration-300" id="filter-btn-diamond">Diamonds</button>
+                <button onclick="filterCategory('bridal')" class="px-6 py-2.5 rounded border border-luxury-borderDark hover:border-luxury-gold transition duration-300" id="filter-btn-bridal">Bridal Heritage</button>
+                <button onclick="filterCategory('investment')" class="px-6 py-2.5 rounded border border-luxury-borderDark hover:border-luxury-gold transition duration-300" id="filter-btn-investment">Investment Bars</button>
+            </div>
+
+            <!-- Catalog Master Grid -->
+            <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically Generated via JS State -->
+            </div>
+        </section>
+
+        <!-- Live Camera AR Virtual Try-On Section -->
+        <section id="tryon" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-luxury-borderDark relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Instruction Column -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="font-cursive text-2xl text-luxury-gold">Exclusive Innovation</span>
+                    <h2 class="font-serif text-3xl md:text-4xl tracking-widest uppercase leading-tight">Interactive AR Try-On Suite</h2>
+                    <div class="w-16 h-[1px] bg-luxury-gold mt-2"></div>
+                    <p class="text-sm text-gray-400 font-serif leading-relaxed">
+                        Skip the waiting room. Grant secure browser camera access to dynamically try on necklaces, crowns, earrings, or custom rings in high precision from our catalog in real time.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full border border-luxury-gold flex items-center justify-center text-xs text-luxury-gold shrink-0 mt-0.5">1</span>
+                            <p class="text-xs text-gray-400">Select a royal piece from the inventory array on the right.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full border border-luxury-gold flex items-center justify-center text-xs text-luxury-gold shrink-0 mt-0.5">2</span>
+                            <p class="text-xs text-gray-400">Launch live webcam capture using the gold starter button.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full border border-luxury-gold flex items-center justify-center text-xs text-luxury-gold shrink-0 mt-0.5">3</span>
+                            <p class="text-xs text-gray-400">Use on-screen fine sliders to reposition, tilt, and scale the jewelry overlay over your portrait.</p>
+                        </div>
+                    </div>
+
+                    <!-- AR Adjustments Controls Widget (Only visible when active) -->
+                    <div id="tryon-controls-panel" class="hidden p-4 rounded border border-luxury-gold/30 bg-luxury-cardDark/50 space-y-3">
+                        <h4 class="font-serif text-[11px] uppercase tracking-widest text-luxury-gold flex items-center gap-1">
+                            <i data-lucide="sliders" class="w-3.5 h-3.5"></i> Precise Fitting Controls
+                        </h4>
+                        <!-- Scale -->
+                        <div>
+                            <div class="flex justify-between text-[10px] text-gray-400 font-mono"><span>SCALE</span><span id="scale-val">1.0x</span></div>
+                            <input type="range" id="tryon-scale" min="0.3" max="2.5" step="0.05" value="1.0" class="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-luxury-gold">
+                        </div>
+                        <!-- Y-Position (Vertical Alignment) -->
+                        <div>
+                            <div class="flex justify-between text-[10px] text-gray-400 font-mono"><span>VERTICAL POSITION</span><span id="y-val">0px</span></div>
+                            <input type="range" id="tryon-y" min="-200" max="200" step="2" value="0" class="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-luxury-gold">
+                        </div>
+                        <!-- X-Position (Horizontal Alignment) -->
+                        <div>
+                            <div class="flex justify-between text-[10px] text-gray-400 font-mono"><span>HORIZONTAL POSITION</span><span id="x-val">0px</span></div>
+                            <input type="range" id="tryon-x" min="-200" max="200" step="2" value="0" class="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-luxury-gold">
+                        </div>
+                        <!-- Rotate -->
+                        <div>
+                            <div class="flex justify-between text-[10px] text-gray-400 font-mono"><span>ROTATION</span><span id="rot-val">0°</span></div>
+                            <input type="range" id="tryon-rotate" min="-180" max="180" step="1" value="0" class="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-luxury-gold">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camera Engine / Viewer Stage Column -->
+                <div class="lg:col-span-7">
+                    <div class="relative aspect-video rounded-xl border border-luxury-gold/40 bg-black overflow-hidden shadow-2xl flex flex-col items-center justify-center">
+                        
+                        <!-- Webcam Feed Video element -->
+                        <video id="webcam-feed" autoplay playsinline class="absolute inset-0 w-full h-full object-cover hidden"></video>
+                        
+                        <!-- Interactive Render Canvas (Overlays the selected jewelry PNG/SVG onto webcam) -->
+                        <div id="tryon-canvas-container" class="absolute inset-0 pointer-events-none flex items-center justify-center">
+                            <!-- Selected Jewelry Overlay Render Frame -->
+                            <img id="tryon-overlay" src="" class="absolute max-h-[60%] select-none pointer-events-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] opacity-0 transition-opacity duration-300" style="transform: translate(0px, 0px) scale(1) rotate(0deg);">
+                        </div>
+
+                        <!-- AR Setup Interface Elements -->
+                        <div id="tryon-setup-view" class="text-center p-8 z-10 space-y-4">
+                            <div class="w-16 h-16 rounded-full border border-luxury-gold/50 bg-[#111] flex items-center justify-center mx-auto text-luxury-gold animate-pulse">
+                                <i data-lucide="camera" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-serif text-lg tracking-widest text-gray-200 uppercase">Live Fitting Engine</h3>
+                            <p class="text-xs text-gray-500 max-w-sm mx-auto">Authorize camera request to begin trying on custom jewels procedurally mapped.</p>
+                            <button id="btn-start-tryon" onclick="initiateTryOnCam()" class="px-6 py-2.5 bg-luxury-gold text-black uppercase font-serif text-xs font-bold tracking-widest hover:bg-luxury-goldHover transition rounded">
+                                Grant Camera Authorization
+                            </button>
+                        </div>
+
+                        <!-- Active Fitting State Indicator Widget -->
+                        <div id="tryon-status-badge" class="absolute top-4 left-4 bg-black/80 px-3 py-1.5 rounded border border-luxury-gold/30 text-[10px] font-mono tracking-widest text-luxury-gold flex items-center gap-2 hidden">
+                            <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span> CAMERA SECURE FEED ACTIVE
+                        </div>
+
+                        <div id="tryon-item-label" class="absolute bottom-4 left-4 right-4 bg-black/80 px-4 py-2 rounded border border-luxury-gold/30 text-xs font-serif tracking-widest text-center text-luxury-champagne uppercase hidden">
+                            TRYING ON: <span id="tryon-item-name" class="font-semibold text-white">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Array of pieces to try on directly below video frame -->
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-gray-500 uppercase block mb-2">QUICK CHANGE GALLERY</span>
+                        <div class="flex gap-3 overflow-x-auto pb-2" id="tryon-gallery-strip">
+                            <!-- Populated with items -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BIS Hallmarked Certificate Verification Station -->
+        <section id="verification" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-luxury-borderDark relative">
+            <div class="max-w-3xl mx-auto space-y-8">
+                <div class="text-center space-y-2">
+                    <span class="font-cursive text-2xl text-luxury-gold">Bureau of Indian Standards</span>
+                    <h2 class="font-serif text-3xl tracking-widest uppercase">BIS Hallmark Verification Portal</h2>
+                    <div class="w-16 h-[1px] bg-luxury-gold mx-auto mt-2"></div>
+                </div>
+
+                <div class="p-6 md:p-8 rounded-xl border border-luxury-borderDark bg-luxury-cardDark/30 backdrop-blur-md space-y-6">
+                    <p class="text-xs text-gray-400 font-serif leading-relaxed text-center">
+                        Verification protects value. Enter any Hallmark registration number or HUID code from your 22 Carats purchase certificate to securely verify weight, purity, certified goldsmith credentials, and issuance date.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="cert-input" placeholder="e.g., BIS-916-HM804" class="flex-1 px-4 py-3 bg-black/50 border border-luxury-borderDark rounded text-sm font-mono tracking-wider focus:outline-none focus:border-luxury-gold text-gray-200">
+                        <button onclick="verifyHUID()" class="px-6 py-3 bg-luxury-gold text-black font-serif text-xs uppercase tracking-widest hover:bg-luxury-goldHover font-bold transition rounded flex items-center justify-center gap-2">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i> Validate HUID
+                        </button>
+                    </div>
+
+                    <!-- Verification Output Screen -->
+                    <div id="cert-output" class="hidden border border-luxury-gold/20 bg-luxury-gold/[0.02] rounded-lg p-6 relative overflow-hidden">
+                        <!-- Holographic security seal -->
+                        <div class="absolute right-4 top-4 w-16 h-16 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-200 to-amber-600 opacity-25 flex items-center justify-center text-[8px] font-serif font-bold text-center text-amber-950 uppercase select-none tracking-widest pointer-events-none shadow-inner border border-yellow-400">SECURE HALLMARK</div>
+
+                        <div class="space-y-4 font-serif text-sm">
+                            <div class="flex items-center gap-2 text-emerald-500 font-bold tracking-widest uppercase text-xs">
+                                <i data-lucide="check-circle" class="w-4 h-4"></i> BIS CERTIFICATE VALIDATED SECURELY
+                            </div>
+                            
+                            <hr class="border-luxury-borderDark/40">
+
+                            <div class="grid grid-cols-2 gap-y-4 text-xs font-mono">
+                                <div>
+                                    <span class="text-gray-500 text-[10px] block font-serif tracking-wider uppercase">CERTIFICATE ID</span>
+                                    <span class="text-gray-200" id="verify-id">-</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500 text-[10px] block font-serif tracking-wider uppercase">JEWELRY CATEGORY</span>
+                                    <span class="text-gray-200" id="verify-item">-</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500 text-[10px] block font-serif tracking-wider uppercase">CERTIFIED PURITY</span>
+                                    <span class="text-luxury-gold font-bold" id="verify-purity">-</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500 text-[10px] block font-serif tracking-wider uppercase">NET WEIGHT</span>
+                                    <span class="text-gray-200" id="verify-weight">-</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500 text-[10px] block font-serif tracking-wider uppercase">MANUFACTURER / LAB</span>
+                                    <span class="text-gray-200" id="verify-lab">-</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500 text-[10px] block font-serif tracking-wider uppercase">ISSUED TIMESTAMP</span>
+                                    <span class="text-gray-200" id="verify-date">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mock Helper -->
+                    <div class="text-center">
+                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block mb-1">REGISTERED MOCK CODES FOR PREVIEW</span>
+                        <div class="flex flex-wrap justify-center gap-2 font-mono text-[10px]">
+                            <button onclick="document.getElementById('cert-input').value='BIS-916-HM804'; verifyHUID()" class="px-2 py-1 rounded bg-[#111] hover:text-luxury-gold border border-luxury-borderDark">BIS-916-HM804</button>
+                            <button onclick="document.getElementById('cert-input').value='BIS-750-HM201'; verifyHUID()" class="px-2 py-1 rounded bg-[#111] hover:text-luxury-gold border border-luxury-borderDark">BIS-750-HM201</button>
+                            <button onclick="document.getElementById('cert-input').value='BIS-999-HM105'; verifyHUID()" class="px-2 py-1 rounded bg-[#111] hover:text-luxury-gold border border-luxury-borderDark">BIS-999-HM105</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Calculators Suite -->
+        <section id="calculators" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-luxury-borderDark relative">
+            <div class="text-center space-y-4 mb-12">
+                <span class="font-cursive text-2xl text-luxury-gold block">Wealth Preservation</span>
+                <h2 class="font-serif text-3xl md:text-4xl tracking-widest uppercase">Investment Estimators</h2>
+                <div class="w-16 h-[1px] bg-luxury-gold mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Calculator Inputs Column -->
+                <div class="p-6 md:p-8 rounded-xl border border-luxury-borderDark bg-luxury-cardDark/30 backdrop-blur-md space-y-6">
+                    <h3 class="font-serif text-lg text-luxury-gold uppercase tracking-widest flex items-center gap-2">
+                        <i data-lucide="calculator" class="w-5 h-5"></i> Metal Value Estimator
+                    </h3>
+                    <p class="text-xs text-gray-400 font-serif">Input your parameters below to compute an itemised quotation containing tax and workmanship factors.</p>
+
+                    <!-- Purity Selection -->
+                    <div>
+                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block mb-2">METAL PURITY RATING</span>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setCalcPurity('24k')" id="purity-btn-24k" class="py-2 rounded border border-luxury-borderDark text-xs font-mono hover:border-luxury-gold uppercase tracking-widest transition">Gold 24K (99.9%)</button>
+                            <button onclick="setCalcPurity('22k')" id="purity-btn-22k" class="py-2 rounded border border-luxury-gold text-xs font-mono bg-luxury-gold text-black uppercase tracking-widest font-bold transition">Gold 22K (91.6%)</button>
+                            <button onclick="setCalcPurity('silver')" id="purity-btn-silver" class="py-2 rounded border border-luxury-borderDark text-xs font-mono hover:border-luxury-gold uppercase tracking-widest transition">Silver (99.9%)</button>
+                        </div>
+                    </div>
+
+                    <!-- Weight Slider -->
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-2">
+                            <span class="text-gray-400 uppercase">WEIGHT (GRAMS)</span>
+                            <span id="calc-weight-val" class="text-luxury-gold font-bold">25g</span>
+                        </div>
+                        <input type="range" id="calc-weight" min="1" max="250" value="25" class="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-luxury-gold" oninput="calculateQuotation()">
+                    </div>
+
+                    <!-- Making Charges Slider -->
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-2">
+                            <span class="text-gray-400 uppercase">MAKING CHARGES (PER GRAM)</span>
+                            <span id="calc-making-val" class="text-luxury-gold font-bold">₹450</span>
+                        </div>
+                        <input type="range" id="calc-making" min="100" max="1500" step="25" value="450" class="w-full h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-luxury-gold" oninput="calculateQuotation()">
+                    </div>
+                </div>
+
+                <!-- Calculator Quotation Invoice Column -->
+                <div class="p-6 md:p-8 rounded-xl border border-luxury-gold/20 bg-luxury-gold/[0.01] flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-serif tracking-widest text-gray-500 uppercase block">ITEMISED ESTIMATION INVOICE</span>
+                        <h3 class="font-serif text-2xl tracking-widest text-white uppercase">Quotation Summary</h3>
+                        
+                        <hr class="border-luxury-borderDark/40">
+
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400 font-serif">Raw Metal Value:</span>
+                                <span id="invoice-raw">₹1,70,750.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400 font-serif">Workmanship/Making Charges:</span>
+                                <span id="invoice-making">₹11,250.00</span>
+                            </div>
+                            <div class="flex justify-between text-luxury-gold">
+                                <span class="text-gray-400 font-serif">Making Charge Discount:</span>
+                                <span id="invoice-discount">-₹1,125.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400 font-serif">GST (3.0% Legal Levy):</span>
+                                <span id="invoice-gst">₹5,426.25</span>
+                            </div>
+                        </div>
+
+                        <hr class="border-luxury-borderDark/40">
+                    </div>
+
+                    <div class="pt-6">
+                        <div class="flex justify-between items-baseline mb-4">
+                            <span class="font-serif text-sm text-gray-400">ESTIMATED VAT INCLUSIVE TOTAL:</span>
+                            <span class="font-mono text-3xl font-bold text-luxury-gold" id="invoice-total">₹1,86,301.25</span>
+                        </div>
+                        <p class="text-[9px] text-gray-500 font-mono text-center">Estimated quotation is highly reflective of the global market indices. Please secure real rates directly at showroom checkout.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIP Private Showroom Appointment Booking -->
+        <section id="appointment" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-luxury-borderDark relative">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="font-cursive text-2xl text-luxury-gold">Signature Hospitality</span>
+                    <h2 class="font-serif text-3xl tracking-widest uppercase">VIP Showroom Private Session</h2>
+                    <div class="w-16 h-[1px] bg-luxury-gold mt-2"></div>
+                    <p class="text-sm text-gray-400 font-serif leading-relaxed">
+                        Secure an exclusive bridal salon viewing room with a dedicated gold artisan advisor. Complimented by custom gemstone recommendations and champagne refreshments.
+                    </p>
+                    <div class="p-4 border border-luxury-borderDark rounded bg-[#111] space-y-2">
+                        <span class="text-[9px] font-mono tracking-widest text-luxury-gold uppercase block">SHOWROOM SCHEDULES</span>
+                        <p class="text-xs text-gray-400 font-serif">Monday — Sunday: 10:30 AM to 08:30 PM</p>
+                        <p class="text-[10px] text-gray-500 font-serif">Valet Parking & Executive Guard escorts are fully integrated.</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <form id="appointment-form" onsubmit="submitAppointment(event)" class="p-6 md:p-8 rounded-xl border border-luxury-borderDark bg-luxury-cardDark/30 backdrop-blur-md space-y-4 font-serif">
+                        <h3 class="font-serif text-sm uppercase tracking-widest text-luxury-gold mb-4">Vault Session Placement</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">YOUR NAME</label>
+                                <input type="text" id="apt-name" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PHONE NUMBER</label>
+                                <input type="tel" id="apt-phone" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PREFERRED DATE</label>
+                                <input type="date" id="apt-date" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white font-mono">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PREFERRED TIMESLOT</label>
+                                <select id="apt-time" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white font-mono">
+                                    <option value="11:00 AM">11:00 AM — Morning Private Viewing</option>
+                                    <option value="01:30 PM">01:30 PM — Afternoon Session</option>
+                                    <option value="04:00 PM">04:00 PM — Tea-Time VIP Fitting</option>
+                                    <option value="06:30 PM">06:30 PM — Evening Heritage Viewing</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PURPOSE OF EXCLUSIVITY</label>
+                            <select id="apt-purpose" required class="w-full px-4 py-2 bg-black/50 border border-luxury-borderDark rounded text-xs focus:outline-none focus:border-luxury-gold text-white font-serif">
+                                <option value="Bridal Bridal Trousseau">Bridal Bridal Trousseau Fitting</option>
+                                <option value="Custom Artisan Design">Custom Artisan Design Consultations</option>
+                                <option value="Bespoke Gold Investment">High-Net Gold Bars Acquisition</option>
+                                <option value="Anniversary Commemoration">Anniversary Collection Viewing</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-luxury-gold text-black uppercase font-serif text-xs tracking-widest font-bold hover:bg-luxury-goldHover transition duration-300 rounded">
+                            Reserve Showroom Session
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Dynamic Product Detail Drawer / Overlay -->
+        <div id="product-detail-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[1000] flex items-center justify-center p-4 hidden">
+            <div class="bg-luxury-cardDark border border-luxury-gold/40 rounded-xl max-w-3xl w-full p-6 md:p-8 relative overflow-y-auto max-h-[90vh]">
+                <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" id="modal-content">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- VAULT CMS / ADMIN CONTROL PANEL MODAL -->
+        <div id="admin-modal" class="fixed inset-0 bg-black/95 z-[5000] p-4 overflow-y-auto hidden">
+            <div class="max-w-6xl mx-auto my-8 bg-luxury-cardDark border border-luxury-gold/50 rounded-xl overflow-hidden shadow-2xl">
+                <!-- Header -->
+                <div class="p-6 border-b border-luxury-borderDark bg-black/50 flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="lock" class="w-6 h-6 text-luxury-gold animate-bounce"></i>
+                        <h2 class="font-serif text-xl tracking-widest text-white uppercase">Vault CMS Master Panel</h2>
+                    </div>
+                    <button onclick="closeAdminModal()" class="px-3 py-1.5 border border-red-500/50 text-red-500 text-xs font-serif uppercase tracking-widest rounded hover:bg-red-500/10 transition">Close Vault</button>
+                </div>
+
+                <!-- Password Login Overlay if not verified -->
+                <div id="admin-login-view" class="p-12 text-center max-w-md mx-auto space-y-6">
+                    <div class="w-16 h-16 rounded-full border border-luxury-gold bg-[#111] flex items-center justify-center mx-auto text-luxury-gold">
+                        <i data-lucide="key" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-lg tracking-wider text-gray-200 uppercase">Authorize Admin Status</h3>
+                        <p class="text-xs text-gray-500 mt-1">Vault operations require passcode clearing.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <input type="password" id="vault-passcode" placeholder="ENTER ACCESS CODE ('admin')" class="w-full px-4 py-3 bg-black border border-luxury-borderDark rounded text-center text-sm font-mono tracking-widest focus:outline-none focus:border-luxury-gold text-white">
+                        <p id="login-error" class="text-red-500 text-[10px] hidden">INCORRECT PASSKEY. SECURITY LOGS REFRESHED.</p>
+                        <button onclick="verifyVaultPasscode()" class="w-full py-2.5 bg-luxury-gold text-black uppercase font-serif text-xs tracking-widest font-bold hover:bg-luxury-goldHover transition rounded">Clear Vault Authentication</button>
+                    </div>
+                </div>
+
+                <!-- Admin Dashboard Main Screen (Hidden by default) -->
+                <div id="admin-dashboard-view" class="hidden grid grid-cols-1 lg:grid-cols-12 min-h-[60vh] text-xs">
+                    
+                    <!-- Control Sidebar -->
+                    <div class="lg:col-span-3 border-r border-luxury-borderDark bg-black/30 p-4 space-y-2 font-serif uppercase tracking-wider">
+                        <button onclick="switchAdminTab('analytics')" id="admin-tab-analytics" class="w-full text-left px-4 py-3 bg-luxury-gold/15 text-luxury-gold border-l-2 border-luxury-gold font-bold flex items-center gap-2 rounded transition"><i data-lucide="line-chart" class="w-4 h-4"></i> Showroom Analytics</button>
+                        <button onclick="switchAdminTab('catalog')" id="admin-tab-catalog" class="w-full text-left px-4 py-3 text-gray-400 hover:text-luxury-gold hover:bg-luxury-gold/5 flex items-center gap-2 rounded transition"><i data-lucide="grid" class="w-4 h-4"></i> Collection CMS</button>
+                        <button onclick="switchAdminTab('rates')" id="admin-tab-rates" class="w-full text-left px-4 py-3 text-gray-400 hover:text-luxury-gold hover:bg-luxury-gold/5 flex items-center gap-2 rounded transition"><i data-lucide="trending-up" class="w-4 h-4"></i> Valuation Controller</button>
+                        <button onclick="switchAdminTab('appointments')" id="admin-tab-appointments" class="w-full text-left px-4 py-3 text-gray-400 hover:text-luxury-gold hover:bg-luxury-gold/5 flex items-center gap-2 rounded transition"><i data-lucide="calendar" class="w-4 h-4"></i> VIP Registries</button>
+                        <button onclick="switchAdminTab('huid')" id="admin-tab-huid" class="w-full text-left px-4 py-3 text-gray-400 hover:text-luxury-gold hover:bg-luxury-gold/5 flex items-center gap-2 rounded transition"><i data-lucide="award" class="w-4 h-4"></i> HUID Registry</button>
+                        <button onclick="switchAdminTab('campaigns')" id="admin-tab-campaigns" class="w-full text-left px-4 py-3 text-gray-400 hover:text-luxury-gold hover:bg-luxury-gold/5 flex items-center gap-2 rounded transition"><i data-lucide="sparkles" class="w-4 h-4"></i> Active Offers</button>
+                    </div>
+
+                    <!-- Main Dynamic Area -->
+                    <div class="lg:col-span-9 p-6 overflow-y-auto max-h-[70vh]" id="admin-tab-content">
+                        <!-- Content dynamically rendered via JS depending on selection -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#050505] border-t border-luxury-borderDark/60 py-16 px-4 theme-transition">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
+            <div class="space-y-4">
+                <span class="font-serif tracking-[0.2em] text-lg text-luxury-gold uppercase block">22 Carats</span>
+                <p class="text-xs text-gray-500 font-serif leading-relaxed">Artisanal gold-smithing and luxury gemstone design since 1996. Authorized BIS Hallmarked boutique showroom.</p>
+                <div class="flex justify-center md:justify-start gap-4 text-luxury-gold">
+                    <a href="#" class="hover:text-white"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="hover:text-white"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                    <a href="#" class="hover:text-white"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-serif text-xs uppercase tracking-widest text-luxury-gold mb-4">Showroom Portals</h4>
+                <ul class="space-y-2 text-xs text-gray-400 font-serif">
+                    <li><a href="#showroom" class="hover:text-white">Heritage Catalog</a></li>
+                    <li><a href="#rates-section" class="hover:text-white">Gold Tickers</a></li>
+                    <li><a href="#tryon" class="hover:text-white">Fitting Room</a></li>
+                    <li><a href="#verification" class="hover:text-white">Validation HUID</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-serif text-xs uppercase tracking-widest text-luxury-gold mb-4">VIP Assist</h4>
+                <ul class="space-y-2 text-xs text-gray-400 font-serif">
+                    <li><a href="#appointment" class="hover:text-white">Private Salon Booking</a></li>
+                    <li><a href="#calculators" class="hover:text-white">Gold Tax Calculator</a></li>
+                    <li><a href="#" class="hover:text-white">Maintenance Advisory</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-serif text-xs uppercase tracking-widest text-luxury-gold mb-4">Contact Showroom</h4>
+                <p class="text-xs text-gray-400 font-serif leading-relaxed">
+                    22 Carats Palace, High-Luxury Enclave Block C, Bengaluru, Karnataka, India<br><br>
+                    <strong>Support VIP Desk:</strong> +91 80 4422 2222
+                </p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto text-center border-t border-luxury-borderDark/30 mt-12 pt-8 text-[10px] font-serif uppercase tracking-widest text-gray-600">
+            © 2026 22 CARATS JEWELLERS PVT. LTD. ALL REGISTERED DESIGNS SECURED.
+        </div>
+    </footer>
+
+    <!-- Logic Core JavaScript -->
+    <script>
+        // GLOBAL APP SYSTEM STATE
+        const AppState = {
+            rates: {
+                gold24k: 7450.00,
+                gold22k: 6830.00,
+                silver: 92.50,
+                lastRefresh: "2026-06-29 22:24"
+            },
+            campaign: {
+                text: "FESTIVAL OF ROYAL GOLD: GET 10% OFF ON MAKING CHARGES",
+                expiry: "2026-07-15T23:59:59",
+                discount: 10 // 10% discount on making charges
+            },
+            catalog: [
+                {
+                    id: "cat_1",
+                    name: "Royal Mughal Emerald Choker",
+                    category: "bridal",
+                    purity: "22K Gold",
+                    weight: 54.5,
+                    stone: "Colombian Carved Emeralds & Basra Pearls",
+                    making: 450,
+                    featured: true,
+                    stock: "Available",
+                    desc: "An ultra-rare heirloom masterpiece recreating Nizam heritage with brilliant hand-cut emerald cabochons.",
+                    // Using majestic SVG vector drawings represented as procedural base64 or inline stylized canvas fallback for Try-On
+                    tryOnSvg: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="200" cy="130" rx="90" ry="40" fill="none" stroke="#D4AF37" stroke-width="8" stroke-dasharray="10 5"/>
+                        <path d="M 110 130 Q 200 240 290 130" fill="none" stroke="#D4AF37" stroke-width="12"/>
+                        <circle cx="200" cy="185" r="14" fill="#0F6D38" stroke="#D4AF37" stroke-width="3"/>
+                        <circle cx="160" cy="170" r="10" fill="#0F6D38" stroke="#D4AF37" stroke-width="2"/>
+                        <circle cx="240" cy="170" r="10" fill="#0F6D38" stroke="#D4AF37" stroke-width="2"/>
+                        <circle cx="130" cy="150" r="8" fill="#FFF5D1" stroke="#D4AF37" stroke-width="2"/>
+                        <circle cx="270" cy="150" r="8" fill="#FFF5D1" stroke="#D4AF37" stroke-width="2"/>
+                    </svg>`,
+                    imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: "cat_2",
+                    name: "Nizam's Diamond Solitaire Ring",
+                    category: "diamond",
+                    purity: "18K White Gold",
+                    weight: 6.2,
+                    stone: "2.5 Carat D-Flawless Certified Cushion Diamond",
+                    making: 950,
+                    featured: true,
+                    stock: "Available",
+                    desc: "Sourced under fair conflict-free certification, capturing a crystalline cut of pristine luminance.",
+                    tryOnSvg: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="200" cy="150" r="50" fill="none" stroke="#E2E8F0" stroke-width="10"/>
+                        <polygon points="200,85 225,110 200,135 175,110" fill="#E2E8F0" stroke="#00D2FF" stroke-width="3"/>
+                        <circle cx="200" cy="110" r="4" fill="#FFF" class="animate-ping"/>
+                    </svg>`,
+                    imageUrl: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: "cat_3",
+                    name: "Temple Heritage Lakshmi Haram",
+                    category: "bridal",
+                    purity: "22K Gold",
+                    weight: 84.0,
+                    stone: "Uncut Rubies, Burma Sapphires & Antique Gold Filigree",
+                    making: 350,
+                    featured: true,
+                    stock: "Available",
+                    desc: "An intricate antique haram piece showing Goddess Lakshmi resting on pristine gold lotuses.",
+                    tryOnSvg: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 100 120 Q 200 270 300 120" fill="none" stroke="#D4AF37" stroke-width="16" stroke-linecap="round"/>
+                        <rect x="180" y="195" width="40" height="50" rx="10" fill="#CD7F32" stroke="#D4AF37" stroke-width="4"/>
+                        <circle cx="200" cy="220" r="8" fill="#B91C1C"/>
+                    </svg>`,
+                    imageUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: "cat_4",
+                    name: "Empress Royal Ruby Bangle",
+                    category: "gold",
+                    purity: "22K Gold",
+                    weight: 38.2,
+                    stone: "Burma Rubies & Rose Cut Diamonds",
+                    making: 400,
+                    featured: false,
+                    stock: "Available",
+                    desc: "Designed as a singular continuous statement of structural gold wrapping deep red fire.",
+                    tryOnSvg: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="200" cy="150" rx="90" ry="30" fill="none" stroke="#D4AF37" stroke-width="14"/>
+                        <circle cx="120" cy="145" r="10" fill="#B91C1C"/>
+                        <circle cx="280" cy="155" r="10" fill="#B91C1C"/>
+                        <circle cx="200" cy="165" r="12" fill="#B91C1C" stroke="#D4AF37" stroke-width="3"/>
+                    </svg>`,
+                    imageUrl: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: "cat_5",
+                    name: "Royal Bullion 24K Gold Bar",
+                    category: "investment",
+                    purity: "24K Gold",
+                    weight: 100.0,
+                    stone: "Pure Gold Bar (99.9% Hallmark certified)",
+                    making: 150,
+                    featured: false,
+                    stock: "Available",
+                    desc: "An investment bar with verified serial coding to protect asset appreciation securely.",
+                    tryOnSvg: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="120,200 280,200 260,100 140,100" fill="#D4AF37" stroke="#FFF5D1" stroke-width="4"/>
+                        <text x="200" y="150" fill="#333" font-family="Cinzel" font-size="16" text-anchor="middle" font-weight="bold">999.9 PURE</text>
+                    </svg>`,
+                    imageUrl: "https://images.unsplash.com/photo-1610375229632-c7158c35a537?auto=format&fit=crop&w=600&q=80"
+                }
+            ],
+            huidRegistry: {
+                "BIS-916-HM804": { purity: "22K Gold (91.6%)", item: "Royal Mughal Emerald Choker", weight: "54.5 grams", lab: "Bureau Verification Lab - South Bengaluru", date: "2026-04-12" },
+                "BIS-750-HM201": { purity: "18K Gold (75.0%)", item: "Nizam's Diamond Solitaire Ring", weight: "6.2 grams", lab: "Diamond Standard Lab - Central West", date: "2026-05-18" },
+                "BIS-999-HM105": { purity: "24K Gold (99.9%)", item: "Royal Bullion 100g Bar", weight: "100.0 grams", lab: "Official India Bullion Lab - Mumbai", date: "2026-06-01" }
+            },
+            appointments: [
+                { id: "apt_1", name: "Rohan Verma", phone: "+91 99882 12345", date: "2026-07-05", time: "11:00 AM", purpose: "Bridal Bridal Trousseau Fitting", status: "Approved" },
+                { id: "apt_2", name: "Priya Sharma", phone: "+91 88776 54321", date: "2026-07-08", time: "04:00 PM", purpose: "Custom Artisan Design", status: "Pending" }
+            ],
+            analytics: {
+                visitors: 12420,
+                tryOnSessions: 3824,
+                inquiresGenerated: 1420
+            },
+            currentPurity: '22k'
+        };
+
+        // Initialize localStorage if empty
+        function loadOrCreateStore() {
+            if (!localStorage.getItem("22c_showroom_catalog")) {
+                localStorage.setItem("22c_showroom_catalog", JSON.stringify(AppState.catalog));
+                localStorage.setItem("22c_showroom_rates", JSON.stringify(AppState.rates));
+                localStorage.setItem("22c_showroom_huid", JSON.stringify(AppState.huidRegistry));
+                localStorage.setItem("22c_showroom_appointments", JSON.stringify(AppState.appointments));
+                localStorage.setItem("22c_showroom_campaign", JSON.stringify(AppState.campaign));
+                localStorage.setItem("22c_showroom_analytics", JSON.stringify(AppState.analytics));
+            } else {
+                AppState.catalog = JSON.parse(localStorage.getItem("22c_showroom_catalog"));
+                AppState.rates = JSON.parse(localStorage.getItem("22c_showroom_rates"));
+                AppState.huidRegistry = JSON.parse(localStorage.getItem("22c_showroom_huid"));
+                AppState.appointments = JSON.parse(localStorage.getItem("22c_showroom_appointments"));
+                AppState.campaign = JSON.parse(localStorage.getItem("22c_showroom_campaign"));
+                AppState.analytics = JSON.parse(localStorage.getItem("22c_showroom_analytics"));
+            }
+        }
+
+        // SAVE STATE HELPER
+        function saveToStore() {
+            localStorage.setItem("22c_showroom_catalog", JSON.stringify(AppState.catalog));
+            localStorage.setItem("22c_showroom_rates", JSON.stringify(AppState.rates));
+            localStorage.setItem("22c_showroom_huid", JSON.stringify(AppState.huidRegistry));
+            localStorage.setItem("22c_showroom_appointments", JSON.stringify(AppState.appointments));
+            localStorage.setItem("22c_showroom_campaign", JSON.stringify(AppState.campaign));
+            localStorage.setItem("22c_showroom_analytics", JSON.stringify(AppState.analytics));
+        }
+
+        // PAGE LOAD INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            loadOrCreateStore();
+            lucide.createIcons();
+            
+            // Increment visitor stats
+            AppState.analytics.visitors += 1;
+            saveToStore();
+
+            // Run Loading Splash Screen
+            let percent = 0;
+            const interval = setInterval(() => {
+                percent += Math.floor(Math.random() * 15) + 5;
+                if (percent >= 100) {
+                    percent = 100;
+                    clearInterval(interval);
+                    gsap.to("#loader", {
+                        opacity: 0,
+                        duration: 1,
+                        ease: "power2.out",
+                        onComplete: () => {
+                            document.getElementById("loader").classList.add("hidden");
+                            runEntranceAnimations();
+                        }
+                    });
+                }
+                document.getElementById("loader-bar").style.width = percent + "%";
+                document.getElementById("loader-percent").innerText = percent + "%";
+            }, 60);
+
+            // Spotlight Cursor positioning
+            const spotlight = document.getElementById("spotlight");
+            window.addEventListener('mousemove', (e) => {
+                gsap.to(spotlight, {
+                    left: e.clientX,
+                    top: e.clientY,
+                    duration: 0.1
+                });
+            });
+
+            // Initialize Banners & Data
+            initPromoCountdown();
+            renderLiveRates();
+            renderCatalog();
+            renderTryOnStrip();
+            calculateQuotation();
+
+            // Theme setup
+            initTheme();
+        });
+
+        // ENTRANCE REVEAL ANIMATIONS via GSAP
+        function runEntranceAnimations() {
+            gsap.from("header", { y: -50, opacity: 0, duration: 1, ease: "power3.out" });
+            gsap.from("#rates-section", { y: 30, opacity: 0, duration: 1.2, delay: 0.5, ease: "power3.out" });
+        }
+
+        // DYNAMIC RENDERING FUNCTIONS
+        function renderLiveRates() {
+            document.getElementById("rate-24k").innerText = `₹${AppState.rates.gold24k.toLocaleString('en-IN')}`;
+            document.getElementById("rate-22k").innerText = `₹${AppState.rates.gold22k.toLocaleString('en-IN')}`;
+            document.getElementById("rate-silver").innerText = `₹${AppState.rates.silver.toLocaleString('en-IN')}`;
+            document.getElementById("rates-timestamp").innerText = AppState.rates.lastRefresh;
+        }
+
+        // Render Showroom Catalog Grid
+        function renderCatalog(itemsToRender = AppState.catalog) {
+            const grid = document.getElementById("catalog-grid");
+            grid.innerHTML = "";
+
+            if (itemsToRender.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-gray-500 font-serif">
+                        <i data-lucide="info" class="w-8 h-8 mx-auto text-luxury-gold mb-2"></i>
+                        <p class="text-sm">No items matching current criteria were found in our vault.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            itemsToRender.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "group bg-luxury-cardDark/50 border border-luxury-borderDark hover:border-luxury-gold/60 p-5 rounded-lg flex flex-col justify-between transition duration-500 relative theme-transition hover:shadow-[0_10px_30px_rgba(212,175,55,0.05)]";
+                card.id = `catalog-card-${item.id}`;
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-square rounded bg-[#0a0a0a] flex items-center justify-center border border-luxury-borderDark/20">
+                        <img src="${item.imageUrl}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 pointer-events-none">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition duration-300">
+                            <button onclick="openProductModal('${item.id}')" class="px-4 py-2 bg-white text-black text-[10px] font-serif uppercase tracking-widest rounded hover:bg-luxury-gold transition font-bold">Inspect Details</button>
+                            <button onclick="tryOnItem('${item.id}')" class="px-4 py-2 bg-luxury-gold text-black text-[10px] font-serif uppercase tracking-widest rounded hover:bg-white transition font-bold flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span> Try-On
+                            </button>
+                        </div>
+                        ${item.featured ? `<span class="absolute top-3 left-3 bg-luxury-gold text-black font-serif text-[9px] tracking-widest uppercase px-2 py-0.5 rounded font-bold shadow">FEATURED MASTERPIECE</span>` : ''}
+                    </div>
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-serif text-base text-gray-200 group-hover:text-luxury-gold transition duration-300 leading-tight">${item.name}</h3>
+                            <span class="font-mono text-xs font-bold text-luxury-gold shrink-0 pl-2">₹${computePrice(item).toLocaleString('en-IN')}</span>
+                        </div>
+                        <p class="text-[11px] text-gray-400 font-mono flex flex-wrap gap-2">
+                            <span>PURITY: <strong class="text-white">${item.purity}</strong></span>
+                            <span>•</span>
+                            <span>WEIGHT: <strong class="text-white">${item.weight}g</strong></span>
+                        </p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Render Quick-Try On Gallery strip
+        function renderTryOnStrip() {
+            const strip = document.getElementById("tryon-gallery-strip");
+            strip.innerHTML = "";
+            AppState.catalog.forEach(item => {
+                const button = document.createElement("button");
+                button.className = "flex-none w-20 h-20 rounded border border-luxury-borderDark overflow-hidden bg-black relative group hover:border-luxury-gold transition";
+                button.onclick = () => tryOnItem(item.id);
+                button.innerHTML = `
+                    <img src="${item.imageUrl}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition flex items-center justify-center">
+                        <span class="text-[9px] font-serif uppercase tracking-widest text-white drop-shadow">FITTING</span>
+                    </div>
+                `;
+                strip.appendChild(button);
+            });
+        }
+
+        // PRICE CALCULATION HELPER
+        function computePrice(item) {
+            // Price = (weight * gramRate) + (weight * makingCharges) - campaignDiscount
+            let metalGramRate = AppState.rates.gold22k;
+            if (item.purity.toLowerCase().includes("24k")) metalGramRate = AppState.rates.gold24k;
+            if (item.purity.toLowerCase().includes("18k")) metalGramRate = AppState.rates.gold22k * 0.81; // estimated 18K
+            if (item.purity.toLowerCase().includes("silver")) metalGramRate = AppState.rates.silver;
+
+            const baseMetalCost = item.weight * metalGramRate;
+            let makingCost = item.weight * item.making;
+            const discountAmount = makingCost * (AppState.campaign.discount / 100);
+            makingCost = makingCost - discountAmount;
+
+            const subtotal = baseMetalCost + makingCost;
+            const gst = subtotal * 0.03; // 3% Indian GST on bullion/jewelry
+            return Math.round(subtotal + gst);
+        }
+
+        // AI SEARCH ENGINE (SIMULATED EXQUISITE CONCIERGE)
+        function triggerAISearch() {
+            const query = document.getElementById("ai-search-input").value.trim().toLowerCase();
+            const responseDiv = document.getElementById("ai-concierge-response");
+            const responseText = document.getElementById("ai-response-text");
+
+            if (!query) return;
+
+            responseDiv.classList.remove("hidden");
+            responseText.innerText = "Consulting our private showroom catalog vaults...";
+
+            // Increment Inquiry Analytics
+            AppState.analytics.inquiresGenerated += 1;
+            saveToStore();
+
+            setTimeout(() => {
+                let filtered = [...AppState.catalog];
+                let reply = "I have fetched our exclusive designs corresponding to your luxury inquiry. ";
+
+                // Parse category intent
+                if (query.includes("bridal") || query.includes("wedding") || query.includes("necklace")) {
+                    filtered = filtered.filter(i => i.category === 'bridal');
+                    reply += "Here is our signature bridal filigree showcasing Nizam-inspired antique gold craftsmanship. ";
+                } else if (query.includes("diamond") || query.includes("solitaire") || query.includes("ring")) {
+                    filtered = filtered.filter(i => i.category === 'diamond');
+                    reply += "Behold our conflict-free flawless solitaire series in 18K White Gold mounts. ";
+                } else if (query.includes("gold") || query.includes("bangle")) {
+                    filtered = filtered.filter(i => i.category === 'gold');
+                    reply += "Displaying pure 22K certified gold catalog. ";
+                } else if (query.includes("bar") || query.includes("coin") || query.includes("investment")) {
+                    filtered = filtered.filter(i => i.category === 'investment');
+                    reply += "Presenting our legal-tender certified 24K Swiss bullion bars. ";
+                }
+
+                // Parse weight threshold intent (e.g., 'under 60g' or 'below 40')
+                const weightMatch = query.match(/(under|below|less\s+than)\s+(\d+)\s*(g|gram|grams)?/);
+                if (weightMatch) {
+                    const maxWeight = parseFloat(weightMatch[2]);
+                    filtered = filtered.filter(i => i.weight <= maxWeight);
+                    reply += `Filtered to pieces designed with optimal lightweight wearability under ${maxWeight}g. `;
+                }
+
+                // Parse budget/price threshold intent (e.g., 'under 80000' or 'below 200000')
+                const budgetMatch = query.match(/(under|below|less\s+than)\s*([0-9,]+)/);
+                if (budgetMatch) {
+                    const limit = parseInt(budgetMatch[2].replace(/,/g, ''));
+                    filtered = filtered.filter(i => computePrice(i) <= limit);
+                    reply += `Priced securely below ₹${limit.toLocaleString('en-IN')}. `;
+                }
+
+                if (filtered.length === 0) {
+                    reply = "Our concierge notes your unique bespoke request. While no standard catalog item fully aligns, we excel at crafting custom commissions tailored specifically to your parameters. May we book an artisan advisory for you?";
+                }
+
+                responseText.innerText = reply;
+                renderCatalog(filtered);
+            }, 800);
+        }
+
+        // CATEGORY FILTERS
+        function filterCategory(cat) {
+            // Update buttons
+            const buttons = document.querySelectorAll("#category-filters button");
+            buttons.forEach(btn => {
+                btn.className = "px-6 py-2.5 rounded border border-luxury-borderDark hover:border-luxury-gold text-gray-400 hover:text-white transition duration-300";
+            });
+
+            const activeBtn = document.getElementById(`filter-btn-${cat}`);
+            if (activeBtn) {
+                activeBtn.className = "px-6 py-2.5 rounded border border-luxury-gold bg-luxury-gold text-black font-semibold transition duration-300";
+            }
+
+            if (cat === 'all') {
+                renderCatalog(AppState.catalog);
+            } else {
+                const filtered = AppState.catalog.filter(i => i.category === cat);
+                renderCatalog(filtered);
+            }
+        }
+
+        // CAMPAIGN TIMER
+        function initPromoCountdown() {
+            document.getElementById("promo-text").innerText = AppState.campaign.text;
+            
+            function updateTimer() {
+                const now = new Date().getTime();
+                const target = new Date(AppState.campaign.expiry).getTime();
+                const diff = target - now;
+
+                if (diff <= 0) {
+                    document.getElementById("promo-banner").classList.add("hidden");
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById("promo-timer").innerText = `${days.toString().padStart(2, '0')}D : ${hours.toString().padStart(2, '0')}H : ${minutes.toString().padStart(2, '0')}M : ${seconds.toString().padStart(2, '0')}S`;
+            }
+            setInterval(updateTimer, 1000);
+            updateTimer();
+        }
+
+        // BIS VERIFICATION PORTAL
+        function verifyHUID() {
+            const input = document.getElementById("cert-input").value.trim();
+            const output = document.getElementById("cert-output");
+
+            if (!input) return;
+
+            const matched = AppState.huidRegistry[input];
+            if (matched) {
+                output.classList.remove("hidden");
+                document.getElementById("verify-id").innerText = input;
+                document.getElementById("verify-item").innerText = matched.item;
+                document.getElementById("verify-purity").innerText = matched.purity;
+                document.getElementById("verify-weight").innerText = matched.weight;
+                document.getElementById("verify-lab").innerText = matched.lab;
+                document.getElementById("verify-date").innerText = matched.date;
+                gsap.fromTo(output, { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5 });
+            } else {
+                output.classList.remove("hidden");
+                output.innerHTML = `
+                    <div class="text-red-500 font-serif text-center space-y-2">
+                        <i data-lucide="alert-triangle" class="w-8 h-8 mx-auto"></i>
+                        <h4 class="font-bold tracking-wider">HUID SIGNATURE UNRESOLVED</h4>
+                        <p class="text-[11px] text-gray-400">The certificate ID "${input}" does not match any authenticated vault entry in Indian Bureau servers. Verify digits.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+        }
+
+        // WEALTH VALUE CALCULATORS
+        function setCalcPurity(pur) {
+            AppState.currentPurity = pur;
+            const buttons = ['24k', '22k', 'silver'];
+            buttons.forEach(b => {
+                const el = document.getElementById(`purity-btn-${b}`);
+                if (b === pur) {
+                    el.className = "py-2 rounded border border-luxury-gold bg-luxury-gold text-black text-xs font-mono uppercase tracking-widest font-bold transition";
+                } else {
+                    el.className = "py-2 rounded border border-luxury-borderDark text-xs font-mono hover:border-luxury-gold text-gray-400 uppercase tracking-widest transition";
+                }
+            });
+            calculateQuotation();
+        }
+
+        function calculateQuotation() {
+            const weight = parseFloat(document.getElementById("calc-weight").value);
+            const making = parseFloat(document.getElementById("calc-making").value);
+
+            document.getElementById("calc-weight-val").innerText = weight + "g";
+            document.getElementById("calc-making-val").innerText = "₹" + making;
+
+            let rate = AppState.rates.gold22k;
+            if (AppState.currentPurity === '24k') rate = AppState.rates.gold24k;
+            if (AppState.currentPurity === 'silver') rate = AppState.rates.silver;
+
+            const rawVal = weight * rate;
+            let makingCost = weight * making;
+            const discount = makingCost * (AppState.campaign.discount / 100);
+            
+            const subtotal = rawVal + makingCost - discount;
+            const gst = subtotal * 0.03;
+            const total = subtotal + gst;
+
+            document.getElementById("invoice-raw").innerText = `₹${Math.round(rawVal).toLocaleString('en-IN')}.00`;
+            document.getElementById("invoice-making").innerText = `₹${Math.round(makingCost).toLocaleString('en-IN')}.00`;
+            document.getElementById("invoice-discount").innerText = `-₹${Math.round(discount).toLocaleString('en-IN')}.00`;
+            document.getElementById("invoice-gst").innerText = `₹${Math.round(gst).toLocaleString('en-IN')}.00`;
+            document.getElementById("invoice-total").innerText = `₹${Math.round(total).toLocaleString('en-IN')}.00`;
+        }
+
+        // WEBCAM LIVE AR TRY ON ENGINE
+        let activeCamStream = null;
+        function initiateTryOnCam() {
+            const video = document.getElementById("webcam-feed");
+            const setupView = document.getElementById("tryon-setup-view");
+            const statusBadge = document.getElementById("tryon-status-badge");
+            const controlsPanel = document.getElementById("tryon-controls-panel");
+
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+                .then(stream => {
+                    activeCamStream = stream;
+                    video.srcObject = stream;
+                    video.classList.remove("hidden");
+                    setupView.classList.add("hidden");
+                    statusBadge.classList.remove("hidden");
+                    controlsPanel.classList.remove("hidden");
+
+                    // Trigger Analytics
+                    AppState.analytics.tryOnSessions += 1;
+                    saveToStore();
+
+                    // Pre-select first item in catalog to showcase try-on overlay if empty
+                    if (!document.getElementById("tryon-overlay").src) {
+                        tryOnItem(AppState.catalog[0].id);
+                    }
+                })
+                .catch(err => {
+                    alert("Secure webcam connection denied. Check your browser privacy credentials.");
+                });
+        }
+
+        // TRY ON SELECTED ITEM SETUP
+        function tryOnItem(id) {
+            const item = AppState.catalog.find(i => i.id === id);
+            if (!item) return;
+
+            // Update DOM element overlays with inline majestic vectors
+            const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(item.tryOnSvg)}`;
+            const overlay = document.getElementById("tryon-overlay");
+            
+            overlay.src = svgDataUrl;
+            overlay.classList.remove("opacity-0");
+            overlay.classList.add("opacity-100");
+
+            document.getElementById("tryon-item-label").classList.remove("hidden");
+            document.getElementById("tryon-item-name").innerText = item.name;
+
+            // Trigger smooth GSAP entry bounce for try-on piece
+            gsap.fromTo(overlay, { scale: 0.1, rotate: -15 }, { scale: 1, rotate: 0, duration: 0.5, ease: "back.out(1.5)" });
+
+            // Initialize Sliders Control Action
+            const scaleInput = document.getElementById("tryon-scale");
+            const yInput = document.getElementById("tryon-y");
+            const xInput = document.getElementById("tryon-x");
+            const rotateInput = document.getElementById("tryon-rotate");
+
+            function updateTransformation() {
+                const scale = scaleInput.value;
+                const x = xInput.value;
+                const y = yInput.value;
+                const rot = rotateInput.value;
+
+                overlay.style.transform = `translate(${x}px, ${y}px) scale(${scale}) rotate(${rot}deg)`;
+                
+                document.getElementById("scale-val").innerText = scale + "x";
+                document.getElementById("x-val").innerText = x + "px";
+                document.getElementById("y-val").innerText = y + "px";
+                document.getElementById("rot-val").innerText = rot + "°";
+            }
+
+            // Bind listeners directly
+            scaleInput.oninput = updateTransformation;
+            xInput.oninput = updateTransformation;
+            yInput.oninput = updateTransformation;
+            rotateInput.oninput = updateTransformation;
+
+            // Reset positioning sliders
+            scaleInput.value = 1.0;
+            xInput.value = 0;
+            yInput.value = 0;
+            rotateInput.value = 0;
+            updateTransformation();
+
+            // Auto-scroll to Try-On frame smoothly
+            document.getElementById("tryon").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // VIP APPOINTMENT PLACEMENT
+        function submitAppointment(e) {
+            e.preventDefault();
+            const name = document.getElementById("apt-name").value.trim();
+            const phone = document.getElementById("apt-phone").value.trim();
+            const date = document.getElementById("apt-date").value;
+            const time = document.getElementById("apt-time").value;
+            const purpose = document.getElementById("apt-purpose").value;
+
+            const newApt = {
+                id: "apt_" + Date.now(),
+                name,
+                phone,
+                date,
+                time,
+                purpose,
+                status: "Pending"
+            };
+
+            AppState.appointments.push(newApt);
+            saveToStore();
+
+            alert(`✨ Private VIP Reservering Cleared!\n\nSalutations ${name}, our Concierge Executive will wire confirmation text directly to ${phone} within 15 minutes.`);
+            document.getElementById("appointment-form").reset();
+        }
+
+        // PRODUCT DETAIL POPUP
+        function openProductModal(id) {
+            const item = AppState.catalog.find(i => i.id === id);
+            if (!item) return;
+
+            const modal = document.getElementById("product-detail-modal");
+            const content = document.getElementById("modal-content");
+
+            content.innerHTML = `
+                <div class="aspect-square bg-[#0c0c0c] border border-luxury-borderDark flex items-center justify-center rounded-lg overflow-hidden">
+                    <img src="${item.imageUrl}" class="w-full h-full object-cover">
+                </div>
+                <div class="space-y-4">
+                    <span class="text-[10px] tracking-widest text-luxury-gold uppercase block">${item.purity} Heritage</span>
+                    <h2 class="font-serif text-2xl text-white tracking-wide leading-tight">${item.name}</h2>
+                    <p class="text-xs text-gray-400 font-serif leading-relaxed">${item.desc}</p>
+                    
+                    <div class="space-y-2 border-t border-b border-luxury-borderDark/40 py-4 font-mono text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">SPECIFIED WEIGHT:</span>
+                            <span class="text-gray-200 font-bold">${item.weight} Grams</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">GEMSTONE DETAILS:</span>
+                            <span class="text-gray-200">${item.stone}</span>
+                        </div>
+                        <div class="flex justify-between text-luxury-gold font-bold">
+                            <span class="text-gray-500">ESTIMATED EX-TAX PRICE:</span>
+                            <span>₹${computePrice(item).toLocaleString('en-IN')}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button onclick="tryOnItem('${item.id}'); closeProductModal();" class="flex-1 py-3 border border-luxury-gold text-luxury-gold uppercase tracking-wider font-serif text-xs rounded hover:bg-luxury-gold/10 transition">AR Fitting Room</button>
+                        <a href="https://wa.me/918044222222?text=${encodeURIComponent(`Salutations 22 Carats Jewellers, I am highly interested in the fine masterwork: ${item.name} (${item.purity}, weight: ${item.weight}g). May you verify current in-stock boutique details?`)}" target="_blank" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 text-white uppercase text-center font-serif text-xs tracking-wider rounded transition flex items-center justify-center gap-1">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Enquiry
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove("hidden");
+            gsap.fromTo("#product-detail-modal > div", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 });
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            document.getElementById("product-detail-modal").classList.add("hidden");
+        }
+
+        // MOBILE DRAWER MENU
+        document.getElementById("mobile-menu-btn").onclick = toggleMobileMenu;
+        function toggleMobileMenu() {
+            const menu = document.getElementById("mobile-menu");
+            menu.classList.toggle("hidden");
+        }
+
+        // THEME CONTROLLER ENGINE
+        function initTheme() {
+            const toggle = document.getElementById("theme-toggle");
+            const sun = document.getElementById("sun-icon");
+            const moon = document.getElementById("moon-icon");
+
+            // Check preference
+            if (localStorage.getItem("22c_theme") === 'light') {
+                document.documentElement.classList.add("light");
+                document.documentElement.classList.remove("dark");
+                sun.classList.remove("hidden");
+                moon.classList.add("hidden");
+            } else {
+                document.documentElement.classList.add("dark");
+                document.documentElement.classList.remove("light");
+                sun.classList.add("hidden");
+                moon.classList.remove("hidden");
+            }
+
+            toggle.onclick = () => {
+                document.documentElement.classList.toggle("light");
+                const isLight = document.documentElement.classList.contains("light");
+                
+                if (isLight) {
+                    localStorage.setItem("22c_theme", 'light');
+                    sun.classList.remove("hidden");
+                    moon.classList.add("hidden");
+                    gsap.to("body", { backgroundColor: "#FFFDF7", color: "#1c1c1c", duration: 0.5 });
+                } else {
+                    localStorage.setItem("22c_theme", 'dark');
+                    sun.classList.add("hidden");
+                    moon.classList.remove("hidden");
+                    gsap.to("body", { backgroundColor: "#0a0a0a", color: "#f3f4f6", duration: 0.5 });
+                }
+            };
+        }
+
+        // VAULT CMS / ADMIN DASHBOARD LOGIC
+        function openAdminModal() {
+            document.getElementById("admin-modal").classList.remove("hidden");
+            // Check session verification
+            if (sessionStorage.getItem("vault_auth_cleared") === "true") {
+                document.getElementById("admin-login-view").classList.add("hidden");
+                document.getElementById("admin-dashboard-view").classList.remove("hidden");
+                switchAdminTab('analytics');
+            } else {
+                document.getElementById("admin-login-view").classList.remove("hidden");
+                document.getElementById("admin-dashboard-view").classList.add("hidden");
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById("admin-modal").classList.add("hidden");
+        }
+
+        function verifyVaultPasscode() {
+            const input = document.getElementById("vault-passcode").value;
+            if (input === 'admin') {
+                sessionStorage.setItem("vault_auth_cleared", "true");
+                document.getElementById("admin-login-view").classList.add("hidden");
+                document.getElementById("admin-dashboard-view").classList.remove("hidden");
+                switchAdminTab('analytics');
+            } else {
+                const err = document.getElementById("login-error");
+                err.classList.remove("hidden");
+                gsap.fromTo(err, { x: -10 }, { x: 0, duration: 0.2, repeat: 3, yoyo: true });
+            }
+        }
+
+        // CMS SWITCH TABS
+        function switchAdminTab(tab) {
+            // Update active states
+            const buttons = document.querySelectorAll("#admin-dashboard-view button");
+            buttons.forEach(btn => {
+                btn.className = "w-full text-left px-4 py-3 text-gray-400 hover:text-luxury-gold hover:bg-luxury-gold/5 flex items-center gap-2 rounded transition";
+            });
+
+            const activeBtn = document.getElementById(`admin-tab-${tab}`);
+            if (activeBtn) {
+                activeBtn.className = "w-full text-left px-4 py-3 bg-luxury-gold/15 text-luxury-gold border-l-2 border-luxury-gold font-bold flex items-center gap-2 rounded transition";
+            }
+
+            const area = document.getElementById("admin-tab-content");
+            area.innerHTML = "";
+
+            if (tab === 'analytics') {
+                area.innerHTML = `
+                    <div class="space-y-6">
+                        <h3 class="font-serif text-base tracking-widest text-white uppercase">Vault Operations & Telemetry</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="p-4 rounded border border-luxury-borderDark bg-black/40">
+                                <span class="text-gray-500 block uppercase">SECURE DIGITAL VISITORS</span>
+                                <span class="text-xl font-bold font-mono text-luxury-gold mt-1 inline-block">${AppState.analytics.visitors}</span>
+                            </div>
+                            <div class="p-4 rounded border border-luxury-borderDark bg-black/40">
+                                <span class="text-gray-500 block uppercase">AR TRY-ON ACTIVATIONS</span>
+                                <span class="text-xl font-bold font-mono text-luxury-gold mt-1 inline-block">${AppState.analytics.tryOnSessions}</span>
+                            </div>
+                            <div class="p-4 rounded border border-luxury-borderDark bg-black/40">
+                                <span class="text-gray-500 block uppercase">VIP CONCIERGE INQUIRIES</span>
+                                <span class="text-xl font-bold font-mono text-luxury-gold mt-1 inline-block">${AppState.analytics.inquiresGenerated}</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded border border-luxury-borderDark bg-black/20 space-y-3">
+                            <h4 class="font-serif text-xs uppercase tracking-widest text-luxury-gold">Active Showroom Status Log</h4>
+                            <div class="space-y-2 font-mono text-[11px] text-gray-400">
+                                <div class="flex justify-between border-b border-luxury-borderDark/20 pb-1"><span>[SYS] Server running securely</span><span class="text-emerald-500">ONLINE</span></div>
+                                <div class="flex justify-between border-b border-luxury-borderDark/20 pb-1"><span>[LOG] Client state read successfully</span><span class="text-gray-500">100% OK</span></div>
+                                <div class="flex justify-between border-b border-luxury-borderDark/20 pb-1"><span>[LOG] Camera driver initialized</span><span class="text-gray-500">STANDBY</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'rates') {
+                area.innerHTML = `
+                    <div class="space-y-6 font-serif">
+                        <h3 class="text-base tracking-widest text-white uppercase">Gold & Silver Index Override</h3>
+                        <p class="text-[11px] text-gray-500">Instantly modifies calculating formulas and prices across all showroom items dynamically.</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">GOLD 24K RATE (₹ / G)</label>
+                                <input type="number" id="cms-24k" value="${AppState.rates.gold24k}" class="w-full px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs font-mono text-white">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">GOLD 22K RATE (₹ / G)</label>
+                                <input type="number" id="cms-22k" value="${AppState.rates.gold22k}" class="w-full px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs font-mono text-white">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">SILVER INDICES (₹ / G)</label>
+                                <input type="number" id="cms-silver" value="${AppState.rates.silver}" class="w-full px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs font-mono text-white">
+                            </div>
+                        </div>
+
+                        <button onclick="saveRatesCMS()" class="px-6 py-2.5 bg-luxury-gold text-black uppercase font-serif text-[10px] font-bold tracking-widest hover:bg-luxury-goldHover transition rounded">Update Market Index</button>
+                    </div>
+                `;
+            } else if (tab === 'appointments') {
+                let listHtml = "";
+                AppState.appointments.forEach((a, idx) => {
+                    listHtml += `
+                        <tr class="border-b border-luxury-borderDark/20 text-xs font-mono">
+                            <td class="py-3 px-2 text-gray-300">${a.name}</td>
+                            <td class="py-3 px-2 text-gray-400">${a.phone}</td>
+                            <td class="py-3 px-2 text-gray-300">${a.date}</td>
+                            <td class="py-3 px-2 text-gray-400">${a.time}</td>
+                            <td class="py-3 px-2 text-luxury-gold">${a.purpose}</td>
+                            <td class="py-3 px-2">
+                                <span class="px-2 py-0.5 rounded text-[10px] ${a.status === 'Approved' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-amber-950 text-amber-400 border border-amber-800'}">${a.status}</span>
+                            </td>
+                            <td class="py-3 px-2 text-right">
+                                ${a.status === 'Pending' ? `<button onclick="approveApt(${idx})" class="text-emerald-500 hover:underline mr-2">Approve</button>` : ''}
+                                <button onclick="deleteApt(${idx})" class="text-red-500 hover:underline">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                area.innerHTML = `
+                    <div class="space-y-6">
+                        <h3 class="font-serif text-base tracking-widest text-white uppercase">Boutique VIP Bookings</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-luxury-borderDark text-[10px] font-serif uppercase text-gray-500">
+                                        <th class="pb-2 px-2">Client Name</th>
+                                        <th class="pb-2 px-2">Contact</th>
+                                        <th class="pb-2 px-2">Date</th>
+                                        <th class="pb-2 px-2">Slots</th>
+                                        <th class="pb-2 px-2">Scope</th>
+                                        <th class="pb-2 px-2">Status</th>
+                                        <th class="pb-2 px-2 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${listHtml || '<tr><td colspan="7" class="py-6 text-center text-gray-500 font-serif">No appointments placed in registry</td></tr>'}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'huid') {
+                let huidHtml = "";
+                Object.keys(AppState.huidRegistry).forEach(key => {
+                    const h = AppState.huidRegistry[key];
+                    huidHtml += `
+                        <tr class="border-b border-luxury-borderDark/20 text-xs font-mono">
+                            <td class="py-3 px-2 text-luxury-gold">${key}</td>
+                            <td class="py-3 px-2 text-gray-200">${h.item}</td>
+                            <td class="py-3 px-2 text-gray-400">${h.purity}</td>
+                            <td class="py-3 px-2 text-gray-400">${h.weight}</td>
+                            <td class="py-3 px-2 text-gray-400">${h.lab}</td>
+                            <td class="py-3 px-2 text-right">
+                                <button onclick="deleteHUID('${key}')" class="text-red-500 hover:underline">Revoke</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                area.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-serif text-base tracking-widest text-white uppercase">HUID Legal Registry</h3>
+                            <button onclick="openAddHuidForm()" class="px-3 py-1.5 bg-luxury-gold text-black text-[10px] font-serif uppercase tracking-widest font-bold rounded">Add Certified ID</button>
+                        </div>
+                        
+                        <div id="add-huid-form-area" class="hidden p-4 rounded border border-luxury-borderDark bg-black/40 space-y-3 font-serif">
+                            <h4 class="text-xs uppercase tracking-widest text-luxury-gold">Add Hallmark Registration Record</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <input type="text" id="add-huid-code" placeholder="HUID CODE (e.g., BIS-916-HM900)" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white">
+                                <input type="text" id="add-huid-item" placeholder="JEWELRY ITEM NAME" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white">
+                                <input type="text" id="add-huid-purity" placeholder="PURITY INDEX" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white">
+                                <input type="text" id="add-huid-weight" placeholder="WEIGHT (G)" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white">
+                                <input type="text" id="add-huid-lab" placeholder="CERTIFIED LAB NAME" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white" value="Bureau Verification Lab - South Bengaluru">
+                            </div>
+                            <button onclick="saveHUID_CMS()" class="px-4 py-2 bg-luxury-gold text-black uppercase text-[9px] tracking-widest font-bold rounded">Commit Certificate</button>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-luxury-borderDark text-[10px] font-serif uppercase text-gray-500">
+                                        <th class="pb-2 px-2">HUID Code</th>
+                                        <th class="pb-2 px-2">Assigned Item</th>
+                                        <th class="pb-2 px-2">Certified Purity</th>
+                                        <th class="pb-2 px-2">Net Weight</th>
+                                        <th class="pb-2 px-2">Assigned Lab</th>
+                                        <th class="pb-2 px-2 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${huidHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'catalog') {
+                let catHtml = "";
+                AppState.catalog.forEach((item, idx) => {
+                    catHtml += `
+                        <tr class="border-b border-luxury-borderDark/20 text-xs font-mono">
+                            <td class="py-3 px-2 text-gray-300 font-serif text-xs">${item.name}</td>
+                            <td class="py-3 px-2 text-gray-400 capitalize">${item.category}</td>
+                            <td class="py-3 px-2 text-luxury-gold">${item.purity}</td>
+                            <td class="py-3 px-2 text-gray-400">${item.weight}g</td>
+                            <td class="py-3 px-2 text-gray-300">₹${computePrice(item).toLocaleString('en-IN')}</td>
+                            <td class="py-3 px-2 text-right">
+                                <button onclick="deleteCatalogItem(${idx})" class="text-red-500 hover:underline">Revoke</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                area.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-serif text-base tracking-widest text-white uppercase">Vault Master Inventory</h3>
+                            <button onclick="openAddCatalogForm()" class="px-3 py-1.5 bg-luxury-gold text-black text-[10px] font-serif uppercase tracking-widest font-bold rounded">Add Jewelry Item</button>
+                        </div>
+
+                        <div id="add-catalog-form-area" class="hidden p-4 rounded border border-luxury-borderDark bg-black/40 space-y-3 font-serif">
+                            <h4 class="text-xs uppercase tracking-widest text-luxury-gold">Add Heritage Piece to Showroom</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <input type="text" id="add-cat-name" placeholder="JEWELRY MASTERWORK NAME" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white">
+                                <select id="add-cat-category" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white">
+                                    <option value="gold">Gold Sets</option>
+                                    <option value="diamond">Diamonds</option>
+                                    <option value="bridal">Bridal Heritage</option>
+                                    <option value="investment">Swiss Bullion</option>
+                                </select>
+                                <input type="text" id="add-cat-purity" placeholder="Purity (e.g., 22K Gold)" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white" value="22K Gold">
+                                <input type="number" id="add-cat-weight" placeholder="NET WEIGHT (G)" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white">
+                                <input type="text" id="add-cat-stone" placeholder="STONES / DIAMOND DESCRIPTION" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white" value="Uncut diamonds & filigree">
+                                <input type="number" id="add-cat-making" placeholder="MAKING CHARGE PER GRAM (₹)" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white" value="450">
+                                <input type="text" id="add-cat-img" placeholder="IMAGE SOURCE URL" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white col-span-2" value="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80">
+                                <textarea id="add-cat-desc" placeholder="LUXURY AD COPY STORYTELLING" class="px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white col-span-2" rows="2"></textarea>
+                            </div>
+                            <button onclick="saveCatalogCMS()" class="px-4 py-2 bg-luxury-gold text-black uppercase text-[9px] tracking-widest font-bold rounded">Commit to Catalog</button>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-luxury-borderDark text-[10px] font-serif uppercase text-gray-500">
+                                        <th class="pb-2 px-2">Bespoke Title</th>
+                                        <th class="pb-2 px-2">Scope</th>
+                                        <th class="pb-2 px-2">Purity Rating</th>
+                                        <th class="pb-2 px-2">Weight</th>
+                                        <th class="pb-2 px-2">Pricing</th>
+                                        <th class="pb-2 px-2 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${catHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'campaigns') {
+                area.innerHTML = `
+                    <div class="space-y-6 font-serif">
+                        <h3 class="text-base tracking-widest text-white uppercase">Active Countdown Campaign CMS</h3>
+                        <p class="text-[11px] text-gray-500">This updates the prominent top countdown bar text and parameters.</p>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">PROMOTION TICKER TEXT</label>
+                                <input type="text" id="cms-campaign-text" value="${AppState.campaign.text}" class="w-full px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs text-white">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">CAMPAIGN EXPIRY DATETIME</label>
+                                <input type="text" id="cms-campaign-expiry" value="${AppState.campaign.expiry}" class="w-full px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs font-mono text-white">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase tracking-widest text-gray-400 block mb-1">MAKING CHARGES DISCOUNT RATE (%)</label>
+                                <input type="number" id="cms-campaign-discount" value="${AppState.campaign.discount}" class="w-full px-3 py-2 bg-black border border-luxury-borderDark rounded text-xs font-mono text-white">
+                            </div>
+                        </div>
+
+                        <button onclick="saveCampaignCMS()" class="px-6 py-2.5 bg-luxury-gold text-black uppercase text-[10px] font-bold tracking-widest hover:bg-luxury-goldHover transition rounded">Commit Campaign Settings</button>
+                    </div>
+                `;
+            }
+            lucide.createIcons();
+        }
+
+        // CMS OPERATIONS
+        function saveRatesCMS() {
+            AppState.rates.gold24k = parseFloat(document.getElementById("cms-24k").value);
+            AppState.rates.gold22k = parseFloat(document.getElementById("cms-22k").value);
+            AppState.rates.silver = parseFloat(document.getElementById("cms-silver").value);
+            
+            const now = new Date();
+            AppState.rates.lastRefresh = now.getFullYear() + "-" + (now.getMonth()+1).toString().padStart(2, '0') + "-" + now.getDate().toString().padStart(2, '0') + " " + now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+
+            saveToStore();
+            renderLiveRates();
+            renderCatalog();
+            calculateQuotation();
+            alert("✨ Live Metal Valuations Updated!");
+            switchAdminTab('rates');
+        }
+
+        function approveApt(idx) {
+            AppState.appointments[idx].status = "Approved";
+            saveToStore();
+            switchAdminTab('appointments');
+        }
+
+        function deleteApt(idx) {
+            AppState.appointments.splice(idx, 1);
+            saveToStore();
+            switchAdminTab('appointments');
+        }
+
+        function openAddHuidForm() {
+            document.getElementById("add-huid-form-area").classList.toggle("hidden");
+        }
+
+        function saveHUID_CMS() {
+            const code = document.getElementById("add-huid-code").value.trim();
+            const item = document.getElementById("add-huid-item").value.trim();
+            const purity = document.getElementById("add-huid-purity").value.trim();
+            const weight = document.getElementById("add-huid-weight").value.trim();
+            const lab = document.getElementById("add-huid-lab").value.trim();
+
+            if (!code || !item) return;
+
+            AppState.huidRegistry[code] = { purity, item, weight: weight + " grams", lab, date: new Date().toISOString().split('T')[0] };
+            saveToStore();
+            switchAdminTab('huid');
+        }
+
+        function deleteHUID(key) {
+            delete AppState.huidRegistry[key];
+            saveToStore();
+            switchAdminTab('huid');
+        }
+
+        function openAddCatalogForm() {
+            document.getElementById("add-catalog-form-area").classList.toggle("hidden");
+        }
+
+        function saveCatalogCMS() {
+            const name = document.getElementById("add-cat-name").value.trim();
+            const category = document.getElementById("add-cat-category").value;
+            const purity = document.getElementById("add-cat-purity").value.trim();
+            const weight = parseFloat(document.getElementById("add-cat-weight").value);
+            const stone = document.getElementById("add-cat-stone").value.trim();
+            const making = parseFloat(document.getElementById("add-cat-making").value);
+            const imageUrl = document.getElementById("add-cat-img").value.trim();
+            const desc = document.getElementById("add-cat-desc").value.trim();
+
+            if (!name || isNaN(weight)) return;
+
+            const newItem = {
+                id: "cat_" + Date.now(),
+                name,
+                category,
+                purity,
+                weight,
+                stone,
+                making,
+                featured: false,
+                stock: "Available",
+                desc,
+                tryOnSvg: `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><circle cx="200" cy="150" r="60" fill="none" stroke="#D4AF37" stroke-width="8"/><circle cx="200" cy="90" r="12" fill="#FFF"/></svg>`,
+                imageUrl
+            };
+
+            AppState.catalog.push(newItem);
+            saveToStore();
+            renderCatalog();
+            renderTryOnStrip();
+            switchAdminTab('catalog');
+        }
+
+        function deleteCatalogItem(idx) {
+            AppState.catalog.splice(idx, 1);
+            saveToStore();
+            renderCatalog();
+            renderTryOnStrip();
+            switchAdminTab('catalog');
+        }
+
+        function saveCampaignCMS() {
+            AppState.campaign.text = document.getElementById("cms-campaign-text").value;
+            AppState.campaign.expiry = document.getElementById("cms-campaign-expiry").value;
+            AppState.campaign.discount = parseInt(document.getElementById("cms-campaign-discount").value);
+
+            saveToStore();
+            initPromoCountdown();
+            calculateQuotation();
+            renderCatalog();
+            alert("✨ Countdown Campaigns Saved & Synchronized!");
+            switchAdminTab('campaigns');
+        }
+    </script>
+</body>
+</html>

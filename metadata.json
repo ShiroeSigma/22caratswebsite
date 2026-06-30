@@ -1,0 +1,6 @@
+{
+  "name": "22 Carats Jewellers",
+  "description": "Bespoke luxury jewelry showroom management system and digital gallery with interactive rate tracking, investment calculators, and certification verifiers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
